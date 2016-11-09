@@ -24,5 +24,6 @@ int main(int argc, char *argv[])
     for(int i = 0 ; i < size ; i++){
         cout << x[i];
     }
+    delete[]x;
     return 0;
 }
