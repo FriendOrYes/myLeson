@@ -25,5 +25,6 @@ int main(int argc, char *argv[])
     char_del(s);
     printf("Строка после преобразования");
     printf(s);
+    delete []s;
     return 0;
 }
