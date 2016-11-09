@@ -1,5 +1,7 @@
 #include <iostream>
 #include <random>
+#include <ctime>
+
 using namespace std;
 void func(int *x,int size)
 {
@@ -16,7 +18,7 @@ void func(int *x,int size)
 }
 int main(int argc, char *argv[])
 {
-    time_t(NULL);
+    srand(time(NULL));
     int *a = new int[50];
     int x=1,i=0 , size ;
     while(x<100)
