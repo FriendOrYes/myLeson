@@ -28,6 +28,6 @@ int main(int argc, char *argv[])
     }
     size = i;
     func(a,size);
-    cout << "Hello World!" << endl;
+    delete []a
     return 0;
 }
