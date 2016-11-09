@@ -3,6 +3,7 @@
 using namespace std;
 void func(int *x ,int size)
 {
+    cout<< __FUNCTION__ << endl;
     int temp;
     for(int i = 0 ; i < size ; i+=2)
     {
