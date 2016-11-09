@@ -37,7 +37,7 @@ void func(char *s ,char *s2, int *count){
 }
 bool func2(char *s,char *s2,int i){
     for(int j = 0 ; s2[j] != 0;j++){
-        if(s[i] == s2[j]){ return 0;}
+        if(s[i] == s2[j]){ return false;}
     }
-    return 1;
+    return true;
 }
