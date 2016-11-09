@@ -23,6 +23,7 @@ int main(int argc, char *argv[])
     s = new char[size];
     gets_s(s,size);
     char_del(s);
+    printf("Строка после преобразования");
     printf(s);
     return 0;
 }
