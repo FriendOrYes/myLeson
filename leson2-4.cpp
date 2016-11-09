@@ -22,6 +22,7 @@ int main(int argc, char *argv[])
     char *s ;
     s = new char[size];
     gets_s(s,size);
+    printf("Строка после преобразования \n");
     string_up(s);
     printf(s);
     delete []s;
