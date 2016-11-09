@@ -29,7 +29,7 @@ int main(int argc, char *argv[])
     gets_s(s,size);
     coding_string(s,s2,call_number);
     printf("Original string %s\n",s);
-    printf("Coded %s\n",s2);
+    printf("Coded string%s\n",s2);
     delete[]s;
     delete[]s2;
     return 0;
