@@ -13,7 +13,7 @@ void coding_string(const char* s, char *s2 ,const char *call_number){
             cout <<"call_number[ "<< k <<"] = "<< call_number[k] << endl;
             if(s[i] == call_number[k]){//если нашли подходящий елемент из шифр таблицы
                //проверяем выходит ли он за придел масива при кодировке
-               //cout <<"j + 5 ="<< j + 5 << endl ;
+               //cout <<"j + 5 ="<< j + 5 << endl 
                //если да то делаем кольцо и начинаем с начала
                //если нет то переходим на 5 элементов вперёд и шифруем
                 k = j;
