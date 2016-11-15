@@ -23,9 +23,6 @@ int main()
         }
     }
 
-    //write your logic here
-
-
     for (int i = 0; i < 3; i++) {
         for (int j = 0; j < 3; j++) {
             for (int n = 0; n < 3; n++) {
@@ -33,13 +30,6 @@ int main()
             }
         }
     }
-
-
-
-
-    //end
-
-
     cout << "Multiply of both matrix:\n";
 
     for (int i = 0; i < 3; i++)
