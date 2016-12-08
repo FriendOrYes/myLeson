@@ -1,42 +1,27 @@
 #include <iostream>
 #include <stdio.h>
 using namespace std;
-bool isRepeated_char(char*,char*,int);
-void map(char*,char*,int*);
+void foo_map(int* symbols ,char * s,int size);
 int main()
 {
-    int *count ,size = 100;
-    char *s = new char[size](),*s2 = new char[size]();
-    count = new int [size];
-    gets_s(s,size);
-    map(s,s2,count);
-    for (int j = 0; s2[j] != 0; j++){
-        cout << s2[j] <<"\t"<<count[j]<<endl;
-    }
-    delete []s;
-    delete []s2;
-    delete []count;
+    int size = 5;
+
+    int *symbols = new int[256]() ;
+
+    char s[5] = "dsda";
+    foo_map(symbols,s,size);
+    delete []symbols;
     return 0;
 }
-void map(char *s ,char *s2, int *count){
-    int kol = 0;
-    for(int i = 0 ; s[i] != 0 ;i++){
-        count[kol] = 0;
-        s2[kol] = 0;
-        if(isRepeated_char(s,s2,i)){
-            for (int j = 0 ; s[j] != 0;j++){
-                if(s[i] == s[j]){
-                    count[kol]++;
-                    s2[kol] = s[i];
-                }
-            }
-            kol++;
-        }
+void foo_map(int* symbols ,char * s,int size){
+    for(int i = 0 ; i <size;++i)
+    {
+        symbols[s[i]] +=1;
     }
-}
-bool isRepeated_char(char *s,char *s2,int i){
-    for(int j = 0 ; s2[j] != 0;j++){
-        if(s[i] == s2[j]){ return false;}
+    for(int i = 0 ; i < 256 ;++i)
+    {
+            char c = i;
+            cout << c << ": " << symbols[i] << endl;
+
     }
-    return true;
 }
