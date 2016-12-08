@@ -1,8 +1,8 @@
 #include <iostream>
 #include <stdio.h>
 using namespace std;
-bool func2(char*,char*,int);
-void func(char*,char*,int*);
+bool isRepeated_char(char*,char*,int);
+void map(char*,char*,int*);
 int main()
 {
     int *count ,size = 100;
