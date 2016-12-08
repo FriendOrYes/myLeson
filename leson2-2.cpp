@@ -6,9 +6,8 @@ void func(char*,char*,int*);
 int main()
 {
     int *count ,size = 100;
-    char *s = new char[size],*s2 = new char[size];
+    char *s = new char[size](),*s2 = new char[size]();
     count = new int [size];
-    memset(s2,0,size*sizeof(char));
     gets_s(s,size);
     map(s,s2,count);
     for (int j = 0; s2[j] != 0; j++){
