@@ -1,4 +1,4 @@
-#include <iostream>
+﻿#include <iostream>
 #include <random>
 #include <ctime>
 
@@ -6,7 +6,7 @@ using namespace std;
 
 /*
  *прототипы главных функций , аргументами которых является масив и его размеры , и
- *указатель на функцию которая выполняет разные задачи над масивом
+ указатель на функцию которая выполняет разные задачи над масивом
 */
 int *map(int *x ,int &size , void (*)(int *,int& size));
 int *filter(int *x ,int &size , void (*)(int *&,int& size));
