@@ -20,8 +20,10 @@ void foo_map(int* symbols ,char * s,int size){
     }
     for(int i = 0 ; i < 256 ;++i)
     {
+        if(symbols[i] > 0)
+        {
             char c = i;
             cout << c << ": " << symbols[i] << endl;
-
+        }
     }
 }
