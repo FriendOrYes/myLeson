@@ -1,7 +1,7 @@
 #include <iostream>
 
 using namespace std;
-void func(int *x ,int size)
+void swap(int *x ,int size)
 {
     cout<< __FUNCTION__ << endl;
     int temp;
@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
     for(int i = 0 ; i < size ; i++){
         cin >> x[i];
     }
-    func(x,size);
+    swap(x,size);
     for(int i = 0 ; i < size ; i++){
         cout << x[i];
     }
