@@ -8,17 +8,17 @@ using namespace std;
 
 
 /***typedef*******/
-typedef int (*maping)(int);
-typedef int (*redusing)(int,int);
-typedef bool (*filtering)(int);
+typedef int (*TMap)(int);
+typedef int (*TRed)(int,int);
+typedef bool (*TFilt)(int);
 
 /*
  *прототипы главных функций , аргументами которых является масив и его размеры , и
  *указатель на функцию которая выполняет разные задачи над масивом
 */
-int *map(int *x ,int &size , maping);
-int *filter(int *x ,int &size , filtering);
-int redus(int *x , int &size , redusing);
+int *Map(int *x ,int &size ,TMap);
+int *Filter(int *x ,int &size , TFilt);
+int Redus(int *x , int &size , TRed);
 
 /*
  *указатели на функцию с аргументами <int *> и <int& >
@@ -32,9 +32,9 @@ int (*red)(int , int);
 */
 
 /*прототипы функций */
-int negative_mas(int );
-int redus_mas(int , int);
-bool filter_mas(int );
+int NegativeMas(int );
+int RedusMas(int , int);
+bool FilterMas(int );
 
 
 
@@ -53,16 +53,14 @@ int main(int argc, char *argv[])
 
 //первая функция map - изменение масива
 //меняется лишь содержимое но не размер
-    //change = *negative_mas;//получение указателя на функцию
-    x = map(x,size, negative_mas );
+    //change = *NegativeMas;//получение указателя на функцию
+    x = Map(x,size, NegativeMas );
     cout << "Mas after change : \n";
     for(int i  = 0 ; i < size ; i++)
     {//вывод изменёного масива
         cout << x[i] <<" \t";
     }
     cout << endl;
-
-    //filt = &filter_mas;
 //вторая функция filter - изменение масива и его размера
 //возврат нового от фильтрованого масива
 //предварительно следя за адресами
@@ -70,7 +68,7 @@ int main(int argc, char *argv[])
     cout << "adress x in stack : " << &x << endl;
     cout << "adress x heap : " << x << endl;
     cout << endl;
-    x = filter(x, size , filter_mas);
+    x = Filter(x, size , FilterMas);
     cout << "Mas after filter : \n";
     for(int i  = 0 ; i < size ; i++)
     {
@@ -84,47 +82,53 @@ int main(int argc, char *argv[])
 //тритья функция redus - выполняет “свертку” массива,
 //последовательно применяя некоторое действие над 1м и 2м элементами и помещая результат на место 1-го элемента.
 //Повторяет до тех пор пока в массиве не останется 1 элемент. Возвращает значение этого элемента.
-    //red = &redus_mas;
+
     cout <<"Mas after convolution : ";
-    cout << redus(x,size,redus_mas) << endl ;
+    cout << Redus(x,size,RedusMas) << endl ;
     delete []x;
     return 0;
 }
 
-int *map(int *x ,  int &size , int (*mapi)(int))
+/**************************************/
+int *Map(int *x ,  int &size , int (*TMap)(int))
 {//функция возвращает указатель масива что изменился
     for(int i = 0 ; i < size ; ++i)
     {
-        x[i]  = mapi(x[i]);
+        x[i]  = TMap(x[i]);
     }
     return x;
 }
-int negative_mas(int x )
-{//уменьшает каждый елемент масива в 2
+
+int NegativeMas(int x )
+{
     return x+1;
 }
-int redus(int *x ,  int &size ,int (*red)(int,int))
+/**************************************/
+int Redus(int *x ,  int &size ,TRed redusing)
 {
     int value = 0;
     for(int i = 0 ; i < size ; i+=2)
     {
-        value += red(x[i],x[i+1]);;
+        value += redusing(x[i],x[i+1]);
     }
     return value;
 }
 
-int redus_mas(int x , int y)
-{//заносит в 0 елемент масива суму всего масива
+int RedusMas(int x , int y)
+{
         return (x + y);
 }
-int *filter(int *x , int& size , bool (*filtering)(int))
+
+/**************************************/
+
+int *Filter(int *x , int& size , TFilt filtering)
 {
     cout << __FUNCTION__ << endl ;
     int j = 0;
     int *a  = new int [size];//создание временого масива
     for(int i = 0 ; i < size ; i ++)
     {
-        //cout << filtering(x[i]);
+        //cout << filt(x[i]);
         if( filtering(x[i]))
         {//фильтруем
             a[j] = x[i];
@@ -140,15 +144,15 @@ int *filter(int *x , int& size , bool (*filtering)(int))
         x[i] = a[i];
     }
     delete []a;//очищаем временый масив
-    //a = nullptr;
     return x;
 }
-bool filter_mas(int x)
+
+bool FilterMas(int x)
 {//фильтрует масив , переберает и создаёт новый масив с елементами больше 2
-    cout << __FUNCTION__ <<endl;
     if(x > 2)
     {
         return 1;
     }
     return 0;
 }
+/**************************************/
