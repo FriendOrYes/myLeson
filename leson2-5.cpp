@@ -2,38 +2,28 @@
 
 using namespace std;
 
-void char_del(char*& s){
+void CharDel(char*const s){
   int j = 0;
-  char *s2 = new char[strlen(s)];
-  for(int i = 0 ; s[i] != 0 ;i++){
-       if( i == 0 && isalpha(s[i])){
-           cout << s[i] << " - " << i <<endl;
-           continue;
+ 
+  for(int i = 1; i < strlen(s); i++){
+       if(s[i] == ' ')
+       {
+           s[j++] = s[i++];
        }
-       if(s[i] == ' '){
-           cout << s[i]<< " - " << i  << endl;
-           s2[j] = s[i];
-           i++;
-           j++;
-       }else{
-           cout << s[i]<< " - " << i << endl;
-           s2[j] = s[i];
+       else
+       {
            j++;
        }
-
-    }
-  s2[j] = '\0';
-  delete []s;
-  s = s2;
+  }
+  s[j] = '\0';
 }
 
 int main(int argc, char *argv[])
 {
-    int size = 100 ;
-    char *s = new char[size]();
+    const int size = 100 ;
+    char s[size] = {};
     gets_s(s,size);
     char_del(s);
     printf(s);
-    delete []s;
     return 0;
 }
