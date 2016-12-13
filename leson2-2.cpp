@@ -1,24 +1,33 @@
 #include <iostream>
 #include <stdio.h>
+
 using namespace std;
-void foo_map(int* symbols ,char * s,int size);
+
+void FooMap(int* symbols ,char * s , int size);
+
+//---------------------------------------------------------------
 int main()
 {
-    int size = 5;
-
-    int *symbols = new int[256]() ;
-
-    char s[5] = "dsda";
-    foo_map(symbols,s,size);
-    delete []symbols;
+    const int size = 5;
+    const int sizeMap = 256; 
+    
+    int symbols[sizeMap] = {};
+    char s[size] = "dsda";
+    
+    foo_map(symbols, s ,size , sizeMap);
+   
     return 0;
 }
-void foo_map(int* symbols ,char * s,int size){
-    for(int i = 0 ; i <size;++i)
+//---------------------------------------------------------------
+
+void FooMap(int* const  symbols , char* const  s , const int size , const int sizeMap){
+   
+    for(int i = 0; i < size; ++i)
     {
-        symbols[s[i]] +=1;
+        symbols[s[i]]+=1;
     }
-    for(int i = 0 ; i < 256 ;++i)
+    
+    for(int i = 0; i < sizeMap; ++i)
     {
         if(symbols[i] > 0)
         {
