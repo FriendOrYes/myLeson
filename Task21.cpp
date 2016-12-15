@@ -94,7 +94,7 @@ public:
 
     Triangle();
     Triangle(float ,float , float );
-    ~Triangle();
+    ~Triangle(){}
 
     float Squere() override;//
     float Perimetr() override;
@@ -197,21 +197,29 @@ void PrintSquerOfShape(Shape** sh , const int size)
         cout << sh[i]->Squere() << endl;
     }
 }
+//------------------------------------------------------
+void FreeMemory(Shape **sh,const int size)
+{
+    for(int i = 0; i < size; ++i)
+    {
+        delete sh[i];
+    }
+}
+//-------------------------------------------------------
 
 int main(int argc, char *argv[])
-{ 
+{
     const int size = 3;
-    Rectangle *rectangle = new Rectangle(2,3);
-    Triangle  *triangle  = new Triangle(3,4,5);
-    Circle    *cirle     = new Circle(5);
 
-    Shape *sh[size] = {rectangle,triangle,cirle};
+    Rectangle *rectanObj = new Rectangle(2,3);
+    Triangle  *trianObj  = new Triangle(3,4,5);
+    Circle    *cirleObj  = new Circle(5);
+
+    Shape *sh[size] = {rectanObj,trianObj,cirleObj};
 
     PrintSquerOfShape(sh,size);
 
-    delete rectangle;
-    delete triangle;
-    delete circle;
-    
+    FreeMemory(sh,size);
+
     return 0;
 }
