@@ -209,5 +209,9 @@ int main(int argc, char *argv[])
 
     PrintSquerOfShape(sh,size);
 
+    delete rectangle;
+    delete triangle;
+    delete circle;
+    
     return 0;
 }
