@@ -94,7 +94,7 @@ public:
 
     Triangle();
     Triangle(float ,float , float );
-    ~Triangle(){}
+    ~Triangle();
 
     float Squere() override;//
     float Perimetr() override;
