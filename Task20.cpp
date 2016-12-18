@@ -1,12 +1,12 @@
 #include <iostream>
-#include <math.h>
 #include <stdio.h>
 #include <string>
 
+#define _USE_MATH_DEFINES
+#include <math.h>
+
 using namespace std;
 
-
-#define M_PI 3.14
 //---------------------------------------------------------
 
 struct Shape;
@@ -67,7 +67,7 @@ float TriangleSquare(Shape *thiz)
     for(int i = 0; i < size; ++i)
     {
         float p = (pTrianle[i].a + pTrianle[i].b + pTrianle[i].c)/2;
-        pTrianle[i].pBase.squreShape = sqrt(p * (p - pTrianle[i].a) * (p-pTrianle[i].b) * (p-pTrianle[i].c));
+        pTrianle[i].pBase.squreShape = sqrt(p * (p - pTrianle[i].a) * (p - pTrianle[i].b) * (p - pTrianle[i].c));
         cout <<" S = " << pTrianle[i].pBase.squreShape << endl ;
         S += pTrianle[i].pBase.squreShape;
     }
@@ -118,7 +118,7 @@ void ShapeInit(Shape* thiz)
     thiz->squreShape = 0;
 }
 //---------------------------------------------------------
-void RectangleInit(Rectangle* thiz , const int size = 1)
+void RectangleInit(Rectangle* thiz, const int size = 1)
 {
     for(int i = 0; i < size; ++i)
     {
@@ -135,7 +135,7 @@ void RectangleInit(Rectangle* thiz , const int size = 1)
     }
 }
 //---------------------------------------------------------
-void CircleInit(Circle* thiz , const int size = 1)
+void CircleInit(Circle* thiz, const int size = 1)
 {
     for(int i = 0; i < size; ++i)
     {
@@ -151,7 +151,7 @@ void CircleInit(Circle* thiz , const int size = 1)
     }
 }
 //---------------------------------------------------------
-void TriangleInit(Triangle* thiz , const int size = 1)
+void TriangleInit(Triangle* thiz, const int size = 1)
 {
     for(int i = 0; i < size; ++i)
     {
@@ -175,7 +175,7 @@ void TriangleInit(Triangle* thiz , const int size = 1)
     }
 }
 //---------------------------------------------------------
-void PrintSquereAllShape(Shape **sh , const int size)
+void PrintSquereAllShape(Shape **sh, const int size)
 {
     for(int i = 0; i < size; ++i)
     {
@@ -198,9 +198,9 @@ int main(int argc, char *argv[])
     RectangleInit(rectangl,sizeOfMasRectangle);
     CircleInit(circl,sizeOfMasCircle);
 
-    Shape *sh[size] = {(Shape*)triangl,(Shape*)circl,(Shape*)rectangl};
+    Shape *sh[size] = {(Shape*)triangl, (Shape*)circl, (Shape*)rectangl};
 
-    PrintSquereAllShape(sh,size);
+    PrintSquereAllShape(sh, size);
 
     delete []triangl;
     delete []circl;
