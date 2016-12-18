@@ -9,22 +9,22 @@ using namespace std;
 
 /******* typedef *******/
 typedef int (*map_t)(int);
-typedef int (*red_t)(int,int);
+typedef int (*red_t)(int, int);
 typedef bool (*filt_t)(int);
 
 /*prototype function*/
 
 //---------------------------------------------------------------------------
 
-int *Map(int *const  x ,const int size ,map_t);
-int *Filter(int* x ,const int ,int&, filt_t);
-int Redus(int *const x , const int size , red_t);
+int *Map(int *const  x, const int size, map_t);
+int *Filter(int* x, const int, int&, filt_t);
+int Redus(int *const x, const int size, red_t);
 
 //---------------------------------------------------------------------------
 
 int AddForech(int );
-int Sum(int , int);
-bool MoreThenTwo(int );
+int Sum(int, int);
+bool MoreThenTwo(int);
 
 
 //---------------------------------------------------------------------------
@@ -43,7 +43,7 @@ int main()
     }
     cout << endl;
 
-    Map(x,size,AddForech);
+    Map(x, size, AddForech);
     cout << "Mas after change : \n";
     for(int i  = 0; i < size; i++)
     {//вывод изменёного масива
@@ -52,7 +52,7 @@ int main()
     cout << endl;
 
     int newSize;
-    Filter(x, size , newSize , MoreThenTwo);
+    Filter(x, size, newSize, MoreThenTwo);
     cout << "Mas after filter : \n";
     for(int i  = 0; i < newSize; i++)
     {
@@ -61,12 +61,12 @@ int main()
     cout << endl;
 
     cout <<"Mas after convolution : ";
-    cout << Redus(x,newSize,Sum) << endl;
+    cout << Redus(x, newSize, Sum) << endl;
     return 0;
 }
 
 //---------------------------------------------
-int *Map(int *const x , const int size , map_t maping)
+int *Map(int *const x, const int size, map_t maping)
 {
     for(int i = 0; i < size; ++i)
     {
@@ -77,33 +77,33 @@ int *Map(int *const x , const int size , map_t maping)
 
 int AddForech(int x )
 {
-    return x+1;
+    return x + 1;
 }
 //---------------------------------------------
-int Redus(int *const x , const int size ,red_t action)
+int Redus(int *const x, const int size, red_t action)
 {
     int value = 0;
     for(int i = 0; i < size; ++i)
     {
-      value = action(value,x[i]);
+      value = action(value, x[i]);
     }
     return value;
 }
 
-int Sum(int x , int y)
+int Sum(int x,int y)
 {
      return  x + y;
 }
 
 //---------------------------------------------
 
-int *Filter(int x[] , const int size , int& newSize, filt_t filtering)
+int *Filter(int x[], const int size, int& newSize, filt_t filtering)
 {
     cout << __FUNCTION__ << endl;
     int j = 0;
     for(int i = 0; i < size; i ++)
     {
-        if( filtering(x[i]))
+        if(filtering(x[i]))
         {//filtering mas by user function
             x[j] = x[i];
             j++;
