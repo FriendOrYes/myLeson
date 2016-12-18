@@ -1,9 +1,10 @@
 #include <iostream>
+
+#define _USE_MATH_DEFINES
 #include <cmath>
 
 using namespace std;
 
-#define M_PI 3.14
 
 //----------------------------------------------
 //------------Class--Shape----------------------
@@ -42,7 +43,7 @@ class Rectangle : public Shape
 
 public:
     Rectangle();
-    Rectangle(float ,float );
+    Rectangle(float, float );
     ~Rectangle() override;
 
     float Squere() override;//
@@ -93,7 +94,7 @@ class Triangle : public Shape
 public:
 
     Triangle();
-    Triangle(float ,float , float );
+    Triangle(float, float, float);
     ~Triangle();
 
     float Squere() override;//
@@ -108,7 +109,7 @@ Triangle::Triangle()
     m_c = 0;
 }
 
-Triangle::Triangle(float a , float b , float c)
+Triangle::Triangle(float a, float b, float c)
 {
     cout << "Triangle(float , float , float  )" << endl;
 
@@ -137,7 +138,7 @@ float Triangle::Squere()
     }
 
     float p = m_perimetr / 2;
-    m_squereShape = sqrt(p * ( p - m_a) * (p - m_b) * (p - m_b));
+    m_squereShape = sqrt(p * (p - m_a) * (p - m_b) * (p - m_b));
 
     return m_squereShape;
 }
@@ -190,7 +191,7 @@ float Circle::Squere()
 //----------------------------------------------
 //----------------------------------------------
 
-void PrintSquerOfShape(Shape** sh , const int size)
+void PrintSquerOfShape(Shape** sh, const int size)
 {
     for(int i = 0; i < size; ++i)
     {
@@ -215,11 +216,11 @@ int main(int argc, char *argv[])
     Triangle  *trianObj  = new Triangle(3,4,5);
     Circle    *cirleObj  = new Circle(5);
 
-    Shape *sh[size] = {rectanObj,trianObj,cirleObj};
+    Shape *sh[size] = {rectanObj, trianObj, cirleObj};
 
-    PrintSquerOfShape(sh,size);
+    PrintSquerOfShape(sh, size);
 
-    FreeMemory(sh,size);
+    FreeMemory(sh, size);
 
     return 0;
 }
