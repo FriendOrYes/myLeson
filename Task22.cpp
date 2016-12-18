@@ -28,6 +28,7 @@ public:
     ~String()
     {
         cout << "~String \n";
+        (*m_counter)--;
         cout << *m_counter;
         if( (*m_counter) == 0 )
         {
