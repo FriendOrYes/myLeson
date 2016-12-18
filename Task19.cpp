@@ -8,9 +8,9 @@ using namespace std;
 
 
 /******* typedef *******/
-typedef int (*map_t)(const int&);
-typedef int (*red_t)(const int&, const int&);
-typedef bool (*filt_t)(const int&);
+typedef int (*map_t)(int);
+typedef int (*red_t)(int, int);
+typedef bool (*filt_t)(int);
 
 /*prototype function*/
 
@@ -22,9 +22,9 @@ int Redus(int *const x, const int size, red_t);
 
 //---------------------------------------------------------------------------
 
-int AddForech(int& );
-int Sum(const int&, const int&);
-bool MoreThenTwo(const int& );
+int AddForech(int );
+int Sum(int, int);
+bool MoreThenTwo(int);
 
 //---------------------------------------------------------------------------
 
@@ -76,7 +76,7 @@ int *Map(int *const x, const int size, map_t maping)
     return x;
 }
 
-int AddForech(const int& x )
+int AddForech(int x )
 {
     return x + 1;
 }
@@ -91,7 +91,7 @@ int Redus(int *const x, const int size, red_t action)
     return value;
 }
 
-int Sum(const int& x, const int& y)
+int Sum(int x,int y)
 {
      return  x + y;
 }
@@ -114,7 +114,7 @@ int *Filter(int x[], const int size, int& newSize, filt_t filtering)
     return x;
 }
 
-bool MoreThenTwo(const int& x)
+bool MoreThenTwo(int x)
 {//value more then two return 1
     if(x > 2)
     {
