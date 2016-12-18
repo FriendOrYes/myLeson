@@ -26,9 +26,8 @@ int AddForech(int );
 int Sum(int , int);
 bool MoreThenTwo(int );
 
+
 //---------------------------------------------------------------------------
-
-
 int main()
 {
     srand(time(0));// рандома к времини ОС
