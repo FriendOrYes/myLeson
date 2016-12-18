@@ -194,9 +194,9 @@ int main(int argc, char *argv[])
     Rectangle *rectangl = new Rectangle[sizeOfMasRectangle];
     Circle *circl = new Circle[sizeOfMasCircle];
 
-    TriangleInit(triangl,sizeOfMasTriangle);
-    RectangleInit(rectangl,sizeOfMasRectangle);
-    CircleInit(circl,sizeOfMasCircle);
+    TriangleInit(triangl, sizeOfMasTriangle);
+    RectangleInit(rectangl, sizeOfMasRectangle);
+    CircleInit(circl, sizeOfMasCircle);
 
     Shape *sh[size] = {(Shape*)triangl, (Shape*)circl, (Shape*)rectangl};
 
