@@ -29,7 +29,11 @@ public:
     {
         cout << "~String \n";
         (*m_counter)--;
+<<<<<<< HEAD
         cout << "m_counter = " << *m_counter  << endl ;
+=======
+        cout << *m_counter;
+>>>>>>> 2950e3d337bc2197aa3e64f5626d567df6467164
         if( (*m_counter) == 0 )
         {
             if(m_buffer)
