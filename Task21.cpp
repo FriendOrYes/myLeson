@@ -18,9 +18,11 @@ class Shape
 protected:
     float m_squereShape;
     float m_perimetr;
-
+    float m_Ox;
+    float m_Oy;
 public:
     Shape();
+    Shape(float, float);
     virtual ~Shape();
     virtual float Squere() = 0;//pure function
     virtual float Perimetr() = 0;
@@ -31,6 +33,15 @@ Shape::Shape()
     ,m_perimetr(-1)
 {
     cout << " Shape() " << endl;
+}
+
+Shape::Shape(float Ox, float Oy)
+    :m_squereShape(-1)
+    ,m_perimetr(-1)
+    ,m_Ox(Ox)
+    ,m_Oy(Oy)
+{
+    cout << " Shape(float, float) " << endl;
 }
 
 Shape::~Shape()
@@ -48,7 +59,7 @@ class Rectangle : public Shape
 public:
     Rectangle();
 
-    Rectangle(float ,float );
+    Rectangle(float , float , float Ox, float Oy);
 
 
     ~Rectangle() override;
@@ -64,8 +75,9 @@ Rectangle::Rectangle()
     cout << "Rectangle " << endl;
 }
 
-Rectangle::Rectangle(float h, float w)
-    : m_height(h)
+Rectangle::Rectangle(float h, float w, float Ox, float Oy)
+    : Shape(Ox,Oy)
+    , m_height(h)
     , m_weight(w)
 {
     cout << "Rectangle(float , float )" << endl;
@@ -103,7 +115,7 @@ public:
 
     Triangle();
 
-    Triangle(float ,float , float );
+    Triangle(float , float , float , float Ox, float Oy);
 
     ~Triangle();
 
@@ -122,8 +134,9 @@ Triangle::Triangle()
 
 
 
-Triangle::Triangle(float a, float b, float c)
-    : m_a(a)
+Triangle::Triangle(float a, float b, float c, float Ox, float Oy)
+    :Shape(Ox,Oy)
+    , m_a(a)
     , m_b(b)
     , m_c(c)
 {
@@ -168,7 +181,7 @@ class Circle :public Shape
 
 public:
     Circle();
-    Circle(float);
+    Circle(float, float Ox, float Oy);
     ~Circle();
     float Squere() override;//
     float Perimetr() override;
@@ -180,8 +193,9 @@ Circle::Circle()
     cout << "Circle ()" << endl;
 }
 
-Circle::Circle(float r)
-    : m_radius(r)
+Circle::Circle(float r ,float Ox, float Oy )
+    : Shape(Ox,Oy)
+    , m_radius(r)
 {
     cout << "Circle(float )" << endl;
 }
@@ -230,9 +244,9 @@ int main(int argc, char *argv[])
 {
     const int size = 3;
 
-    Rectangle *rectanObj = new Rectangle(2,3);
-    Triangle  *trianObj  = new Triangle(3,4,5);
-    Circle    *cirleObj  = new Circle(5);
+    Rectangle *rectanObj = new Rectangle(2,3,32,11);
+    Triangle  *trianObj  = new Triangle(3,4,5,42,44);
+    Circle    *cirleObj  = new Circle(5,32,32);
 
 
     Shape *sh[size] = {rectanObj,trianObj,cirleObj};
