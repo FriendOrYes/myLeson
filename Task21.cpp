@@ -129,7 +129,6 @@ Triangle::Triangle()
     , m_c(0)
 {
     cout << "Triangle() " << endl;
-
 }
 
 
