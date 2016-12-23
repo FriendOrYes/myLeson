@@ -3,7 +3,7 @@
 #include <ctime>
 
 using namespace std;
-void func(int *x,int size)
+void random_print(int *x,int size)
 {
     cout<<__FUNCTION__<<endl;
     for(int i = size ; i  > 0; i-- )
@@ -29,7 +29,7 @@ int main(int argc, char *argv[])
        i++;
     }
     size = i;
-    func(a,size);
+    random_print(a,size);
     delete []a
     return 0;
 }

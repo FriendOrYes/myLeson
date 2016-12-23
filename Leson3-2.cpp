@@ -1,63 +1,77 @@
 #include <iostream>
 
 using namespace std;
-int** Matrix(int **x,int **x2, int n ,int m)
+
+void InitMatrix(int** const firstMatrix, const int rows ,const int columns)
 {
-    for(int i = 0 ; i < n;i++)
+    for(int i = 0; i < rows; i++)
     {
-        x[i] = new int[m];
-    }
-    for(int i = 0 ; i < n;i++)
-    {
-        cout << "Row - " << i+1 <<endl;
-        for(int j = 0 ; j < m;j++)
+        cout << "Row - " << i + 1 <<endl;
+        
+        firstMatrix[i] = new int[columns];
+        
+        for(int j = 0; j < columns; j++)
         {
-            cin >> x[i][j];
+            cin >> firstMatrix[i][j];
         }
     }
-    for(int i = 0 ; i < m;i++)
-    {
-        x2[i] = new int[n];
-        for(int j = 0 ; j < n;j++)
-        {
-            x2[i][j] = x[j][i];
-        }
-    }
-    return x2;
 }
-int main(int argc, char *argv[])
+//-----------------------------------------------------------------------------------------------------
+void TurnMatrix90Degrees(int** const firstMatrix,int **& secondMatrix,const int rows,const int columns )
 {
-    int n , m;
-    cin >> n >> m;
-    int **x = new int*[m];
-    int **x2 = new int*[n];
-    x2 = Matrix(x,x2,n,m);
-    cout << "Matrix :" << endl;
-    for(int i = 0 ; i < n;i++)
+    for(int i = 0; i < columns; i++)
     {
-        for(int j = 0 ; j < m;j++)
+        secondMatrix[i] = new int[rows];
+        for(int j = 0; j < rows; ++j)
         {
-            cout  << x[i][j] << "\t";
+            secondMatrix[i][j] = firstMatrix[rows-j-1][i];
+        }
+    }
+}
+/// 111 321
+/// 222 321
+/// 333 321
+//--------------------------------------------------------------------------------------------------------
+void PrintMatrix(int **const x , const int rows,const int columns )
+{
+    for(int i = 0; i < rows; i++)
+    {
+        for(int j = 0; j < columns; j++)
+        {
+            cout  << x[i][j] << " ";
         }
         cout << endl;
     }
-    cout << "New Matrix :" << endl;
-    for(int i = 0 ; i < m;i++)
-    {
-        for(int j = 0 ; j < n;j++)
-        {
-            cout  << x2[i][j] << " ";
-        }
-        cout << endl;
-    }
-    for(int i = 0 ; i < n;i++)
+}
+//------------------------------------------------------------------
+void FreeMemory(int**& x ,const int rows)
+{
+    for(int i = 0; i < rows; i++)
     {
         delete[]x[i];
     }
-    for(int i = 0 ; i < m;i++)
-    {
-        delete[]x2[i];
-    }
-    cout << "Hello World!" << endl;
+
+    x = nullptr;
+}
+//-----------------------------------------------------------------------
+int main(int argc, char *argv[])
+{
+    int rows , columns;
+    cin >> rows >> columns;
+    int **firstMatrix = new int*[rows];
+    int **secondMatrix = new int*[columns];
+
+    InitMatrix(firstMatrix,rows,columns);
+    TurnMatrix90Degrees(firstMatrix,secondMatrix,rows,columns);
+
+    cout << "Matrix :" << endl;
+    PrintMatrix(firstMatrix,rows,columns);
+
+    cout << "New Matrix :" << endl;
+    PrintMatrix(secondMatrix,rows,columns);
+
+    FreeMemory(firstMatrix,rows);
+    FreeMemory(secondMatrix,columns);
+
     return 0;
 }

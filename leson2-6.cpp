@@ -1,29 +1,46 @@
 #include <iostream>
 
 using namespace std;
-void func(int *x ,int size)
+
+
+//-----------------------------------
+void SwapMas(int * const x , int size)
 {
-    cout<< __FUNCTION__ << endl;
-    int temp;
-    for(int i = 0 ; i < size ; i+=2)
+    for(int i = 0; i < size; i+=2)
     {
-        temp = x[i];
-        x[i] = x[i+1];
-        x[i+1] = temp;
+        swap(x[i],x[i + 1]);
     }
 }
-
-int main(int argc, char *argv[])
+//-----------------------------------
+void PrintMas(int *const x , const int size )
 {
-    int size = 12;
-    int *x = new int[size];
-    for(int i = 0 ; i < size ; i++){
-        cin >> x[i];
-    }
-    func(x,size);
-    for(int i = 0 ; i < size ; i++){
+    for(int i = 0; i < size; i++)
+    {
         cout << x[i];
     }
-    delete[]x;
+    cout << endl;
+}
+//-----------------------------------
+void InitMas(int *const x , const int size)
+{
+    for(int i = 0; i < size; i++){
+        cin >> x[i];
+    }
+}
+//-----------------------------------
+
+int main()
+{
+    const int size = 12;
+    int x[size] = {};
+
+    cout << "Init Mas: \n";
+    InitMas(x,size);
+    PrintMas(x,size);
+
+    cout << "Swap Mas: \n";
+    SwapMas(x,size);
+    PrintMas(x,size);
+
     return 0;
 }

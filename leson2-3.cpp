@@ -2,40 +2,31 @@
 #include <stdio.h>
 
 using namespace std;
-void coding_string(const char* s, char *s2 ,const char *call_number){
-    int size_shifr = strlen(call_number);
-    for(int i = 0;s[i]; i++)
+void CodingString(const char* s, char *s2 ,const char callNumber){
+    const int sizeShifr = strlen(callNumber);
+    int i = 0;
+    for(; i < strlen(s); ++i)
     {
         s2[i] = s[i];
-        cout<< s2[i]<<endl;
-        for(int j = 0 ; call_number[j] ; j++){
+        cout << s2[i] << endl;
+        for(int j = 0; j < sizeShifr ; j++){
             int k = j;
-            cout <<"call_number[ "<< k <<"] = "<< call_number[k] << endl;
-            if(s[i] == call_number[k]){//если нашли подходящий елемент из шифр таблицы
-               //проверяем выходит ли он за придел масива при кодировке
-               //cout <<"j + 5 ="<< j + 5 << endl 
-               //если да то делаем кольцо и начинаем с начала
-               //если нет то переходим на 5 элементов вперёд и шифруем
-                k = j;
-                j+5 > size_shifr? k = j+5 - size_shifr:k+=5;//
-                s2[i] = call_number[k];
+            cout <<" call_number[ " << k << "] = " << callNumber[k] << endl;
+            if(s[i] == callNumber[k]){
+                s2[i] = callNumber[(j+5)%sizeShifr];
             }
         }
     }
+    s2[i] = '\0'; 
 }
-int main(int argc, char *argv[])
+int main()
 {
-    int size = 100;
-    char *s , *s2;
-    s = new char[size];
-    s2 = new char[size];
-    memset(s2,0,size*sizeof(char));
-    const char call_number[] = "abcdfg123456-0";
+    const int size = 100;
+    char s[size] ,s2[size];
+    const char callNumber[] = "abcdfg123456-0";
     gets_s(s,size);
-    coding_string(s,s2,call_number);
+    CodingString(s,s2,callNumber);
     printf("Original string %s\n",s);
     printf("Coded %s\n",s2);
-    delete[]s;
-    delete[]s2;
     return 0;
 }

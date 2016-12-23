@@ -1,9 +1,17 @@
 #include <iostream>
+<<<<<<< HEAD
+=======
+
+#define _USE_MATH_DEFINES
+>>>>>>> 7d0067215a8658c04c8515a0ce9655caa53947e3
 #include <cmath>
 
 using namespace std;
 
+<<<<<<< HEAD
 #define M_PI 3.14
+=======
+>>>>>>> 7d0067215a8658c04c8515a0ce9655caa53947e3
 
 //----------------------------------------------
 //------------Class--Shape----------------------
@@ -42,7 +50,11 @@ class Rectangle : public Shape
 
 public:
     Rectangle();
+<<<<<<< HEAD
     Rectangle(float ,float );
+=======
+    Rectangle(float, float );
+>>>>>>> 7d0067215a8658c04c8515a0ce9655caa53947e3
     ~Rectangle() override;
 
     float Squere() override;//
@@ -93,7 +105,11 @@ class Triangle : public Shape
 public:
 
     Triangle();
+<<<<<<< HEAD
     Triangle(float ,float , float );
+=======
+    Triangle(float, float, float);
+>>>>>>> 7d0067215a8658c04c8515a0ce9655caa53947e3
     ~Triangle();
 
     float Squere() override;//
@@ -108,7 +124,11 @@ Triangle::Triangle()
     m_c = 0;
 }
 
+<<<<<<< HEAD
 Triangle::Triangle(float a , float b , float c)
+=======
+Triangle::Triangle(float a, float b, float c)
+>>>>>>> 7d0067215a8658c04c8515a0ce9655caa53947e3
 {
     cout << "Triangle(float , float , float  )" << endl;
 
@@ -137,7 +157,11 @@ float Triangle::Squere()
     }
 
     float p = m_perimetr / 2;
+<<<<<<< HEAD
     m_squereShape = sqrt(p * ( p - m_a) * (p - m_b) * (p - m_b));
+=======
+    m_squereShape = sqrt(p * (p - m_a) * (p - m_b) * (p - m_b));
+>>>>>>> 7d0067215a8658c04c8515a0ce9655caa53947e3
 
     return m_squereShape;
 }
@@ -190,7 +214,11 @@ float Circle::Squere()
 //----------------------------------------------
 //----------------------------------------------
 
+<<<<<<< HEAD
 void PrintSquerOfShape(Shape** sh , const int size)
+=======
+void PrintSquerOfShape(Shape** sh, const int size)
+>>>>>>> 7d0067215a8658c04c8515a0ce9655caa53947e3
 {
     for(int i = 0; i < size; ++i)
     {
@@ -215,11 +243,19 @@ int main(int argc, char *argv[])
     Triangle  *trianObj  = new Triangle(3,4,5);
     Circle    *cirleObj  = new Circle(5);
 
+<<<<<<< HEAD
     Shape *sh[size] = {rectanObj,trianObj,cirleObj};
 
     PrintSquerOfShape(sh,size);
 
     FreeMemory(sh,size);
+=======
+    Shape *sh[size] = {rectanObj, trianObj, cirleObj};
+
+    PrintSquerOfShape(sh, size);
+
+    FreeMemory(sh, size);
+>>>>>>> 7d0067215a8658c04c8515a0ce9655caa53947e3
 
     return 0;
 }
