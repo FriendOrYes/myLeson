@@ -1,17 +1,14 @@
 #include <iostream>
-<<<<<<< HEAD
-=======
+
 
 #define _USE_MATH_DEFINES
->>>>>>> 7d0067215a8658c04c8515a0ce9655caa53947e3
+
 #include <cmath>
 
 using namespace std;
 
-<<<<<<< HEAD
 #define M_PI 3.14
-=======
->>>>>>> 7d0067215a8658c04c8515a0ce9655caa53947e3
+
 
 //----------------------------------------------
 //------------Class--Shape----------------------
@@ -30,10 +27,10 @@ public:
 
 };
 Shape::Shape()
+    :m_squereShape(-1)
+    ,m_perimetr(-1)
 {
     cout << " Shape() " << endl;
-    m_squereShape = -1;
-    m_perimetr = -1;
 }
 
 Shape::~Shape()
@@ -50,11 +47,10 @@ class Rectangle : public Shape
 
 public:
     Rectangle();
-<<<<<<< HEAD
+
     Rectangle(float ,float );
-=======
-    Rectangle(float, float );
->>>>>>> 7d0067215a8658c04c8515a0ce9655caa53947e3
+
+
     ~Rectangle() override;
 
     float Squere() override;//
@@ -62,17 +58,18 @@ public:
 };
 
 Rectangle::Rectangle()
+    : m_height(0)
+    , m_weight(0)
 {
     cout << "Rectangle " << endl;
-    m_height = 0;
-    m_weight = 0;
 }
 
 Rectangle::Rectangle(float h, float w)
+    : m_height(h)
+    , m_weight(w)
 {
     cout << "Rectangle(float , float )" << endl;
-    m_height = h;
-    m_weight = w;
+
 }
 
 Rectangle::~Rectangle()
@@ -105,11 +102,9 @@ class Triangle : public Shape
 public:
 
     Triangle();
-<<<<<<< HEAD
+
     Triangle(float ,float , float );
-=======
-    Triangle(float, float, float);
->>>>>>> 7d0067215a8658c04c8515a0ce9655caa53947e3
+
     ~Triangle();
 
     float Squere() override;//
@@ -117,24 +112,22 @@ public:
 };
 
 Triangle::Triangle()
+    : m_a(0)
+    , m_b(0)
+    , m_c(0)
 {
     cout << "Triangle() " << endl;
-    m_a = 0;
-    m_b = 0;
-    m_c = 0;
+
 }
 
-<<<<<<< HEAD
-Triangle::Triangle(float a , float b , float c)
-=======
+
+
 Triangle::Triangle(float a, float b, float c)
->>>>>>> 7d0067215a8658c04c8515a0ce9655caa53947e3
+    : m_a(a)
+    , m_b(b)
+    , m_c(c)
 {
     cout << "Triangle(float , float , float  )" << endl;
-
-    m_a = a;
-    m_b = b;
-    m_c = c;
 }
 
 float Triangle::Perimetr()
@@ -157,11 +150,11 @@ float Triangle::Squere()
     }
 
     float p = m_perimetr / 2;
-<<<<<<< HEAD
+
     m_squereShape = sqrt(p * ( p - m_a) * (p - m_b) * (p - m_b));
-=======
+
     m_squereShape = sqrt(p * (p - m_a) * (p - m_b) * (p - m_b));
->>>>>>> 7d0067215a8658c04c8515a0ce9655caa53947e3
+
 
     return m_squereShape;
 }
@@ -182,15 +175,15 @@ public:
 };
 
 Circle::Circle()
+    : m_radius(0)
 {
     cout << "Circle ()" << endl;
-    m_radius = 0;
 }
 
 Circle::Circle(float r)
+    : m_radius(r)
 {
     cout << "Circle(float )" << endl;
-    m_radius = r;
 }
 
 Circle::~Circle()
@@ -207,18 +200,16 @@ float Circle::Perimetr()
 float Circle::Squere()
 {
     cout << "Circle squere - " ;
-    m_squereShape = M_PI * pow(m_radius,2);
+    m_squereShape = M_PI * pow(m_radius, 2);
     return m_squereShape;
 }
 
 //----------------------------------------------
 //----------------------------------------------
 
-<<<<<<< HEAD
-void PrintSquerOfShape(Shape** sh , const int size)
-=======
+
+
 void PrintSquerOfShape(Shape** sh, const int size)
->>>>>>> 7d0067215a8658c04c8515a0ce9655caa53947e3
 {
     for(int i = 0; i < size; ++i)
     {
@@ -243,19 +234,13 @@ int main(int argc, char *argv[])
     Triangle  *trianObj  = new Triangle(3,4,5);
     Circle    *cirleObj  = new Circle(5);
 
-<<<<<<< HEAD
+
     Shape *sh[size] = {rectanObj,trianObj,cirleObj};
 
     PrintSquerOfShape(sh,size);
 
     FreeMemory(sh,size);
-=======
-    Shape *sh[size] = {rectanObj, trianObj, cirleObj};
 
-    PrintSquerOfShape(sh, size);
-
-    FreeMemory(sh, size);
->>>>>>> 7d0067215a8658c04c8515a0ce9655caa53947e3
 
     return 0;
 }
