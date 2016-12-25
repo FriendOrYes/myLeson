@@ -7,8 +7,6 @@
 
 using namespace std;
 
-#define M_PI 3.14
-
 
 //----------------------------------------------
 //------------Class--Shape----------------------
@@ -18,8 +16,8 @@ class Shape
 protected:
     float m_squereShape;
     float m_perimetr;
-    float m_Ox;
-    float m_Oy;
+    float m_x;
+    float m_y;
 public:
     Shape();
     Shape(float, float);
@@ -35,11 +33,11 @@ Shape::Shape()
     cout << " Shape() " << endl;
 }
 
-Shape::Shape(float Ox, float Oy)
+Shape::Shape(float x, float y)
     :m_squereShape(-1)
     ,m_perimetr(-1)
-    ,m_Ox(Ox)
-    ,m_Oy(Oy)
+    ,m_x(x)
+    ,m_y(y)
 {
     cout << " Shape(float, float) " << endl;
 }
@@ -59,7 +57,7 @@ class Rectangle : public Shape
 public:
     Rectangle();
 
-    Rectangle(float , float , float Ox, float Oy);
+    Rectangle(float , float , float x, float y);
 
 
     ~Rectangle() override;
@@ -75,8 +73,8 @@ Rectangle::Rectangle()
     cout << "Rectangle " << endl;
 }
 
-Rectangle::Rectangle(float h, float w, float Ox, float Oy)
-    : Shape(Ox,Oy)
+Rectangle::Rectangle(float h, float w, float x, float y)
+    : Shape(x,y)
     , m_height(h)
     , m_weight(w)
 {
@@ -115,7 +113,7 @@ public:
 
     Triangle();
 
-    Triangle(float , float , float , float Ox, float Oy);
+    Triangle(float , float , float , float x, float y);
 
     ~Triangle();
 
@@ -133,8 +131,8 @@ Triangle::Triangle()
 
 
 
-Triangle::Triangle(float a, float b, float c, float Ox, float Oy)
-    :Shape(Ox,Oy)
+Triangle::Triangle(float a, float b, float c, float x, float y)
+    :Shape(x,y)
     , m_a(a)
     , m_b(b)
     , m_c(c)
@@ -180,7 +178,7 @@ class Circle :public Shape
 
 public:
     Circle();
-    Circle(float, float Ox, float Oy);
+    Circle(float, float x, float y);
     ~Circle();
     float Squere() override;//
     float Perimetr() override;
@@ -192,8 +190,8 @@ Circle::Circle()
     cout << "Circle ()" << endl;
 }
 
-Circle::Circle(float r ,float Ox, float Oy )
-    : Shape(Ox,Oy)
+Circle::Circle(float r ,float x, float y )
+    : Shape(x,y)
     , m_radius(r)
 {
     cout << "Circle(float )" << endl;
