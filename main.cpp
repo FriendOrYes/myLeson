@@ -270,10 +270,13 @@ public:
     {
 
     }
-    const string& Title() const;
+    const string& Title() const
+    {
+        return  m_button;
+    }
     string Render() override
     {
-        return m_button;
+        return "<button>" + m_content + "\n" + "</button>";
     }
 private:
     string m_button;
@@ -289,10 +292,13 @@ public:
     {
 
     }
-    const string& Url() const;
+    const string& Url() const
+    {
+        return m_image;
+    }
     string Render() override
     {
-        "<img src='../../smiley.gif' height= + '42' width='42'>"
+        "<img src='../../smiley.gif' height=" + to_string(Height()) + "width= "+to_string(Width())+">";
     }
 private:
     string m_image;
@@ -313,7 +319,7 @@ public:
     }
     string Render() override
     {
-        return "<textarea>\n" + m_content+ "\n" + "</textarea>\n";
+        return "<textarea>\n" + m_content + "\n" + "</textarea>\n";
     }
 
 private:
