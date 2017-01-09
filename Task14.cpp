@@ -6,6 +6,8 @@ using namespace std;
 
 
 #define ARRAY_SIZE(a) (sizeof(a)/sizeof(a[0]))
+
+
 void CreatPassword(char *password)
 {
     int limits[] = {3, 2, 2, 1};
@@ -27,13 +29,13 @@ void CreatPassword(char *password)
         {
             switch (j) {
             case 0:
-                password[i] = rand()%10 + 48;
+                password[i] = rand()%10 + '0';
                 break;
             case 1:
-                password[i] = rand()%26 + 97;
+                password[i] = rand()%26 + 'a';
                 break;
             case 2:
-                password[i] = rand()%26 + 65;
+                password[i] = rand()%26 + 'A';
                 break;
             default:
                 password[i] = '_';
@@ -45,13 +47,17 @@ void CreatPassword(char *password)
     }
     password[i - 1] = '\0';
 }
-
+//-----------------------------------------------------------
 int main(int argc, char *argv[])
 {
     srand(time(NULL));
+
     const int size = 8;
     char password[size] = {};
+
     CreatPassword(password);
+
     printf(" Encrypted String - %s \n",password);
+
     return 0;
 }
