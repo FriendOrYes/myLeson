@@ -491,8 +491,6 @@ private:
 	shared_ptr<Man> m_man;
 	shared_ptr<ButtonPanel> m_panel;
 	
-	template<typename T>
-	friend void func(T& obj, RenderWindow);
 };
 
 //---------------------------------------------------------------------------------------
@@ -793,10 +791,16 @@ int main()
 	//	mapObj->SetManInFloor(rand()%20 + 1););
 
 	Clock clock;
-
+	
+	bool startLift = true;
+	
 	while (window.isOpen())
 	{
-		mapObj->SetManInFloor(rand() % 20 + 1);
+		if(startLift)
+		{
+			mapObj->SetManInFloor(rand() % 20 + 1);
+			startLift = false;
+		}
 		float time = clock.getElapsedTime().asMicroseconds();
 		clock.restart();
 		time = time / 800;
@@ -820,6 +824,7 @@ int main()
 						if (tmp[i].GetButtonSprite().getGlobalBounds().contains(pos.x, pos.y))
 						{
 							lift.StartLift(mapObj->GetMan().GetFloar(), window);
+							startLift = true;
 						}
 					}
 				}
