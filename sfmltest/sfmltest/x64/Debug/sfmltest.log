@@ -1,0 +1,18 @@
+﻿  main.cpp
+c:\users\chaba\onedrive\документы\visual studio 2015\projects\sfmltest\main.cpp(70): warning C4244: аргумент: преобразование "const int" в "float", возможна потеря данных
+c:\users\chaba\onedrive\документы\visual studio 2015\projects\sfmltest\main.cpp(282): warning C4244: инициализация: преобразование "sf::Int64" в "float", возможна потеря данных
+c:\users\chaba\onedrive\документы\visual studio 2015\projects\sfmltest\main.cpp(293): warning C4244: +=: преобразование "double" в "float", возможна потеря данных
+c:\users\chaba\onedrive\документы\visual studio 2015\projects\sfmltest\main.cpp(300): warning C4244: +=: преобразование "double" в "float", возможна потеря данных
+c:\users\chaba\onedrive\документы\visual studio 2015\projects\sfmltest\main.cpp(399): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+c:\users\chaba\onedrive\документы\visual studio 2015\projects\sfmltest\main.cpp(399): warning C4244: аргумент: преобразование "const int" в "float", возможна потеря данных
+c:\users\chaba\onedrive\документы\visual studio 2015\projects\sfmltest\main.cpp(414): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+c:\users\chaba\onedrive\документы\visual studio 2015\projects\sfmltest\main.cpp(417): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+c:\users\chaba\onedrive\документы\visual studio 2015\projects\sfmltest\main.cpp(522): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+c:\users\chaba\onedrive\документы\visual studio 2015\projects\sfmltest\main.cpp(628): warning C4244: инициализация: преобразование "sf::Int64" в "float", возможна потеря данных
+c:\users\chaba\onedrive\документы\visual studio 2015\projects\sfmltest\main.cpp(631): warning C4244: =: преобразование "sf::Int64" в "float", возможна потеря данных
+c:\users\chaba\onedrive\документы\visual studio 2015\projects\sfmltest\main.cpp(689): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+c:\users\chaba\onedrive\документы\visual studio 2015\projects\sfmltest\main.cpp(693): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+c:\users\chaba\onedrive\документы\visual studio 2015\projects\sfmltest\main.cpp(772): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+c:\users\chaba\onedrive\документы\visual studio 2015\projects\sfmltest\main.cpp(799): warning C4244: инициализация: преобразование "sf::Int64" в "float", возможна потеря данных
+  sfmltest.vcxproj -> C:\Users\chaba\OneDrive\документы\visual studio 2015\Projects\sfmltest\x64\Debug\sfmltest.exe
+  sfmltest.vcxproj -> C:\Users\chaba\OneDrive\документы\visual studio 2015\Projects\sfmltest\x64\Debug\sfmltest.pdb (Partial PDB)
