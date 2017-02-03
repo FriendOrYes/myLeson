@@ -23,7 +23,7 @@ void InitMas<char>(char x[], const int size)
 {
     for(int i = 0; i < size; ++i)
     {
-        x[i] = rand()%25 + 65;
+        x[i] = rand()%('z'-'a'+1) + 'a';
     }
 }
 
