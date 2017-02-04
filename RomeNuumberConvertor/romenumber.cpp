@@ -21,15 +21,15 @@ RomeNumber::RomeNumber(const char* romeChar)
     ConvertFrRomeToArab();
 }
 //----------------------------------------------------------------
-RomeNumber::RomeNumber(int arabNumber)
+RomeNumber::RomeNumber(const int& arabNumber)
     : m_arabNumber(arabNumber)
     , m_romeString("")
 {
-    ConvertFrArabToRome();
 }
 //----------------------------------------------------------------
-string RomeNumber::GetRomeString() const
+string RomeNumber::GetRomeString()
 {
+    ConvertFrArabToRome();
     return m_romeString;
 }
 
@@ -137,10 +137,19 @@ const string& RomeNumber::ConvertFrArabToRome()
 }
 const RomeNumber& RomeNumber::operator = (const RomeNumber& obj)
 {
-    this->m_arabNumber = obj.m_arabNumber;
-    this->m_romeString = obj.m_romeString;
+    if(this != &obj)
+    {
+        RomeNumber tmp(obj);
+        tmp.m_arabNumber = obj.m_arabNumber;
 
+        Swap(tmp);
+    }
     return *this;
+}
+//---------------------------------------------------------------
+void RomeNumber::Swap(RomeNumber& obj)
+{
+    std::swap(obj.m_arabNumber, this->m_arabNumber);
 }
 //----------------------------------------------------------------
 int RomeNumber::operator + (const int& rhs)
@@ -186,7 +195,7 @@ RomeNumber RomeNumber::operator / (const RomeNumber& rhs)
 const int& RomeNumber::operator += (const int& rhs)
 {
     m_arabNumber += rhs;
-    ConvertFrArabToRome();
+
 
     return m_arabNumber;
 }
@@ -194,23 +203,18 @@ const int& RomeNumber::operator += (const int& rhs)
 const RomeNumber& RomeNumber::operator += (const RomeNumber& rhs)
 {
     m_arabNumber += rhs.m_arabNumber;
-    ConvertFrArabToRome();
-
     return *this;
 }
 //-------------------------------------------------------
 const int& RomeNumber::operator -= (const int& rhs)
 {
     m_arabNumber -= rhs;
-    ConvertFrArabToRome();
-
     return m_arabNumber;
 }
 //-------------------------------------------------------
 const RomeNumber& RomeNumber::operator -= (const RomeNumber& rhs)
 {
     m_arabNumber -= rhs.m_arabNumber;
-    ConvertFrArabToRome();
 
     return *this;
 }
@@ -218,15 +222,12 @@ const RomeNumber& RomeNumber::operator -= (const RomeNumber& rhs)
 const int& RomeNumber::operator *=(const int& rhs)
 {
     m_arabNumber *= rhs;
-    ConvertFrArabToRome();
-
     return m_arabNumber;
 }
 //-------------------------------------------------------
 const RomeNumber& RomeNumber::operator *= (const RomeNumber& rhs)
 {
     m_arabNumber *= rhs.m_arabNumber;
-    ConvertFrArabToRome();
 
     return *this;
 }
@@ -234,7 +235,6 @@ const RomeNumber& RomeNumber::operator *= (const RomeNumber& rhs)
 const int& RomeNumber::operator /= (const int& rhs)
 {
     m_arabNumber /= rhs;
-    ConvertFrArabToRome();
 
     return m_arabNumber;
 }
@@ -242,18 +242,13 @@ const int& RomeNumber::operator /= (const int& rhs)
 const RomeNumber& RomeNumber::operator /= (const RomeNumber& rhs)
 {
     m_arabNumber /= rhs.m_arabNumber;
-    ConvertFrArabToRome();
 
     return *this;
 }
 //-------------------------------------------------------
 const bool RomeNumber::operator == (const int& rhs)const
 {
-    if(m_arabNumber == rhs)
-    {
-        return 1;
-    }
-    return 0;
+    return (m_arabNumber == rhs);
 }
 //-------------------------------------------------------
 const bool RomeNumber::operator != (const int& rhs)const
@@ -263,11 +258,7 @@ const bool RomeNumber::operator != (const int& rhs)const
 //-------------------------------------------------------
 const bool RomeNumber::operator < (const int& rhs)const
 {
-    if(m_arabNumber < rhs)
-    {
-        return 1;
-    }
-    return 0;
+    return (m_arabNumber < rhs);
 }
 //-------------------------------------------------------
 const bool RomeNumber::operator <= (const int& rhs)const
@@ -324,7 +315,6 @@ RomeNumber RomeNumber::operator ++(const int)
 {
     RomeNumber tmp(*this);
     ++m_arabNumber;
-    ConvertFrArabToRome();
 
     return tmp;
 }
@@ -333,7 +323,6 @@ RomeNumber RomeNumber::operator --(const int)
 {
     RomeNumber tmp(*this);
     --m_arabNumber;
-    ConvertFrArabToRome();
 
     return tmp;
 }
@@ -343,18 +332,16 @@ RomeNumber RomeNumber::operator --()
     return *this -= RomeNumber(1);
 }
 
-ostream& operator << (ostream& os, const RomeNumber& obj)
+ostream& operator << (ostream& os, RomeNumber& obj)
 {
-    os << "arab number - " << obj.m_arabNumber << endl;
-    os << "rome number - " << obj.m_romeString << endl;
+    os << "arab number - " << obj.GetArabNumber() << endl;
+    os << "rome number - " << obj.ConvertFrArabToRome() << endl;
 
     return os;
 }
 istream& operator >> (istream& is, RomeNumber& obj)
 {
     is >> obj.m_arabNumber;
-    obj.ConvertFrArabToRome();
-
     return is;
 }
 

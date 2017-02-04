@@ -7,12 +7,12 @@
 
 using namespace std;
 
-int Sum(int x, int y)
+int Sum(const int& x, const int& y)
 {
      return  x + y;
 }
 
-bool MoreThenTwo(int x)
+bool MoreThenTwo(const int& x)
 {//value more then two return 1
     if(x > 2)
     {
@@ -22,7 +22,7 @@ bool MoreThenTwo(int x)
 }
 
 
-int AddForech(int x)
+int AddForech(const int& x)
 {
     return x + 1;
 }

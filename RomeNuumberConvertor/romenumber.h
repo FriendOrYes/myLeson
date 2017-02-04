@@ -20,15 +20,15 @@ public:
 
     RomeNumber();
     RomeNumber(const char *);
-    RomeNumber(int);
+    RomeNumber(const int &);
     RomeNumber(const RomeNumber&);
     ~RomeNumber();
 
-    string GetRomeString() const;
+    string GetRomeString();
     int GetArabNumber() const;
     const int& ConvertFrRomeToArab();
     const string &ConvertFrArabToRome();
-
+    void Swap(RomeNumber&);
     int operator + (const int&);
     RomeNumber operator + (const RomeNumber&);
     int operator - (const int&);
@@ -68,7 +68,7 @@ public:
     RomeNumber RomeNumber::operator --(const int);
     RomeNumber RomeNumber::operator --();
 
-    friend ostream& operator << (ostream& os, const RomeNumber&);
+    friend ostream& operator << (ostream& os, RomeNumber&);
     friend istream& operator >> (istream& is, RomeNumber&);
     explicit operator int()const;
 

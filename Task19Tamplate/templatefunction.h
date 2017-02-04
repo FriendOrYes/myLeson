@@ -40,7 +40,7 @@ void PrintMas(T x[], const int& size)
 }
 //---------------------------------------------
 template<typename T>
-T *Map(T x[], const int& size, T (*pMapFunc)(T))
+T *Map(T x[], const int& size, T (*pMapFunc)(const T&))
 {
     cout << __FUNCTION__ << endl;
     for(int i = 0; i < size; ++i)
@@ -51,7 +51,7 @@ T *Map(T x[], const int& size, T (*pMapFunc)(T))
 }
 //---------------------------------------------
 template<typename T>
-T Redus(T *const x, const int& size, T (*pRedFunc)(T, T))
+T Redus(T *const x, const int& size, T (*pRedFunc)(const T&, const T&))
 {
     cout << __FUNCTION__ << endl;
     T value = 0;
@@ -64,7 +64,7 @@ T Redus(T *const x, const int& size, T (*pRedFunc)(T, T))
 
 //---------------------------------------------
 template<typename T>
-T *Filter(T x[], const int& size, int& newSize, bool (*Filt_ptr_f)(T))
+T *Filter(T x[], const int& size, int& newSize, bool (*Filt_ptr_f)(const T&))
 {
     cout << __FUNCTION__ << endl;
     int j = 0;

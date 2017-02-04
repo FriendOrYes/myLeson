@@ -1,336 +1,194 @@
 #include <iostream>
 #include <cstring>
 
+//#define NDEBUG
 #include <cassert>
-#define ARRAY_SIZE(a) (sizeof(a)/sizeof(a[0]))
+
 using namespace std;
-////--------
-///
-/// Test 1
-///
 
-//template<class T>
-//class ImmutableBuffer
-//{
-//public:
-//    ImmutableBuffer(T *arr, const int size)
-//        :m_buffer(new T[size])
-//        ,m_size(size)
-//    {
-//        for(int i = 0; i < size; ++i)
-//        {
-//            m_buffer[i] = arr[i];
-//        }
-//    }
-//    ImmutableBuffer(const ImmutableBuffer& obj)
-//        :m_buffer(new T[obj.m_size])
-//        ,m_size(obj.m_size)
-//    {
-//        for(int i = 0; i < obj.m_size; ++i)
-//        {
-//            m_buffer[i] = obj.m_buffer[i];
-//        }
-//    }
-//    ~ImmutableBuffer()
-//    {
-//        if(m_buffer)
-//        {
-//            delete []m_buffer;
-//            m_buffer = nullptr;
-//        }
-//    }
-//    const T& operator[](const size_t index)const
-//    {
-//        return m_buffer[index];
-//    }
-//    template<typename U>
-//    friend ostream& operator << (ostream& os, const ImmutableBuffer<U>& obj);
-//    const bool operator == (const ImmutableBuffer& obj)const
-//    {
-//        if(m_size != obj.m_size)
-//        {
-//            return false;
-//        }
-//        for(int i = 0; i < m_size; ++i)
-//        {
-//            if(m_buffer[i] != obj.m_buffer[i])
-//            {
-//                return false;
-//            }
-//        }
-//        return true;
-//    }
-//    const bool operator == (const T* arr)const
-//    {
-//        if(m_size != ARRAY_SIZE(arr))
-//        {
-//            return false;
-//        }
-//        for(int i = 0; i < m_size; ++i)
-//        {
-//            if(m_buffer[i] != arr[i])
-//            {
-//                return false;
-//            }
-//        }
-//        return true;
-//    }
-//    const bool operator !=(const ImmutableBuffer& obj)const
-//    {
-//        return !(this == obj);
-//    }
-//    const bool operator !=(const T *arr)const
-//    {
-//        return !(this == arr);
-//    }
-//private:
-//    const ImmutableBuffer& operator=(const ImmutableBuffer& obj){}
-//    T *m_buffer;
-//    size_t m_size;
-
-//};
-
-//template<class T>
-//ostream& operator<< (ostream& os, const ImmutableBuffer<T>& obj)
-//{
-//    for(int i = 0; i < obj.m_size; ++i)
-//    {
-//        os << obj.m_buffer[i] << " ";
-//    }
-//    return os;
-//}
-///int main(int argc, char *argv[])
-//{
-//    int arr2[] ={1,2};
-
-
-//    double arr[] = {1.0, 2.0, 3.0};
-//    ImmutableBuffer<double> buff(arr, ARRAY_SIZE(arr));
-//    ImmutableBuffer<double> buff2 = buff;
-//        arr[0] = 0;
-//        assert(buff[0] == 1.0);
-
-//        // equal
-//        assert(buff == buff2);
-
-//        // should fail
-//        // buff[0] = 42.0;
-//        // buff    = buff2;
-
-//        cout << buff << endl;
-
-//    return 0;
-///}
-/// Finish Test 1
-///-----------------------------------------------------------------------------------------------------------------
-///
-
-//template<>
-//class ImmutableBuffer<char>
-//{
-//public:
-//    ImmutableBuffer(char *arr)
-//        :m_buffer(new char[strlen(arr) + 1])
-//    {
-//        for(unsigned int i = 0; i < strlen(arr); ++i)
-//        {
-//            m_buffer[i] = arr[i];
-//        }
-//    }
-//    ImmutableBuffer(const ImmutableBuffer& obj)
-//        :m_buffer(new char[strlen(obj.m_buffer + 1)])
-//    {
-//        strcpy(m_buffer,obj.m_buffer);
-//    }
-//    ~ImmutableBuffer()
-//    {
-//        if(m_buffer)
-//        {
-//            delete []m_buffer;
-//            m_buffer = nullptr;
-//        }
-//    }
-//    const bool operator == (const ImmutableBuffer& obj)const
-//    {
-//        return strcmp(m_buffer,obj.m_buffer);
-//    }
-//    const bool operator == (const char* str)const
-//    {
-//        return strcmp(m_buffer,str);
-//    }
-//    const bool operator !=(const ImmutableBuffer& obj)const
-//    {
-//        return !(this == obj);
-//    }
-//    const bool operator !=(const string& str)const
-//    {
-//        return !(this == str);
-//    }
-//    friend ostream& operator<<(ostream& os, const ImmutableBuffer& obj);
-//private:
-//    const ImmutableBuffer& operator=(const ImmutableBuffer& obj){}
-//    char *m_buffer;
-//};
-////-----------------------------------------------------------------------------------------------------------------
-////-----------------------------------------------------------------------------------------------------------------
-//template<>
-//class ImmutableBuffer<string>
-//{
-//public:
-//    ImmutableBuffer(string str)
-//        :m_buffer(str)
-//    {
-//    }
-//    ImmutableBuffer(const ImmutableBuffer& obj)
-//        :m_buffer(obj.m_buffer)
-//    {
-//    }
-
-//    friend ostream& operator<<(ostream& os, const ImmutableBuffer& obj);
-//private:
-//    string m_buffer;
-//};
-////-----------------------------------------------------------------------------------------------------------------
-//ostream& operator<< (ostream& os, const ImmutableBuffer<int>& obj)
-//{
-//    for(int i = 0; i < obj.m_size; ++i)
-//    {
-//        os << obj.m_buffer[i] << " ";
-//    }
-//    return os;
-//}
-////----------------------------------------------------------------------------------------
-//ostream& operator<< (ostream& os, const ImmutableBuffer<double>& obj)
-//{
-//    for(int i = 0; i < obj.m_size; ++i)
-//    {
-//        os << obj.m_buffer[i] << " ";
-//    }
-//    return os;
-//}
-////----------------------------------------------------------------------------------------
-
-//ostream& operator<<(ostream& os, const ImmutableBuffer<char>& obj)
-//{
-//    os << obj.m_buffer;
-//    return os;
-//}
-//----------------------------------------------------------------------------------------
-
-//template<class T> error: undefined reference to `operator<<(std::ostream&, ImmutableBuffer<double> const&)'
-//ostream& operator<< (ostream& os, const ImmutableBuffer<T>& obj)
-//{
-//    for(int i = 0; i < obj.m_size; ++i)
-//    {
-//        os << obj.m_buffer[i] << " ";
-//    }
-//    return os;
-//}
-//------------------------------------------------------------------------------------------------------------------
-
-
-
-///-
-/// Test 2
-class HTMLElement
+class String
 {
-public:
-     unsigned Width() const
-     {
-         return m_width;
-     }
-     unsigned Height() const
-     {
-         return m_height;
-     }
-     bool Hidden() const
-     {
-         return m_hidden;
-     }
-     HTMLElement(unsigned width,unsigned height,bool hidden)
-         :m_width(width)
-         ,m_height(height)
-         ,m_hidden(hidden)
-     {}
-     virtual string Render() = 0;
-     virtual ~HTMLElement(){}
 private:
-    unsigned m_width;
-    unsigned m_height;
-    bool m_hidden;
+    char* m_buffer;
+    int* m_counter;
+
+    bool CheckCounter()
+    {
+        (*m_counter)--;
+        if(*m_counter == 0)
+        {
+            return 1;
+        }
+        return 0;
+    }
+    void AttachToBuffer(const String& obj)
+    {
+        m_buffer = obj.m_buffer;
+        m_counter = obj.m_counter;
+        (*m_counter)++;
+    }
+
+    void DettachToBuffer()
+    {
+        if(m_counter) delete[]m_counter;
+        if(m_buffer) delete []m_buffer;
+
+        m_counter = nullptr;
+        m_buffer = nullptr;
+    }
+public:
+    String()
+        :m_counter(new int(1))
+        ,m_buffer(nullptr)
+    {
+        cout << "String : "<< this <<endl;
+    }
+    String(const char* c)
+        :m_buffer(new char[strlen(c) + 1])
+        ,m_counter(new int(0))
+    {
+        cout << "String(St): "<< this <<endl;
+        strcpy(m_buffer, c);
+        (*m_counter)++;
+    }
+
+    String(const String& obj)
+    {
+        AttachToBuffer(obj);
+        cout << "String copy\n";
+    }
+
+    ~String()
+    {
+        if(CheckCounter())
+        {
+            DettachToBuffer();
+        }
+    }
+    String& operator=(const String& obj)
+    {
+        if(&obj != this)
+        {
+            String tmp(obj);
+            tmp.CheckCounter();
+            tmp.AttachToBuffer(obj);
+            Swap(tmp);
+        }
+        return *this;
+    }
+    String& operator=(const char* value)
+    {
+        String tmp(*this);
+
+        if(tmp.CheckCounter())
+        {
+            DettachToBuffer();
+        }
+        tmp.m_counter = new int(1);
+        tmp.m_buffer = new char[strlen(value) + 1];
+        strcpy(tmp.m_buffer, value);
+
+        Swap(tmp);
+        return *this;
+    }
+
+    void SetChar(const char& c, const int& index)
+    {
+        String tmp(*this);
+
+        if(tmp.CheckCounter() == false)
+        {
+            tmp.m_counter = new int(1);
+            char *tempBuffer = new char[strlen(tmp.m_buffer) + 1];
+            strcpy(tempBuffer, tmp.m_buffer);
+            tmp.m_buffer = tempBuffer;
+        }
+        tmp.m_buffer[index] = c;
+        Swap(tmp);
+    }
+
+    const char* operator +(const String& obj)const
+    {
+        char* c = new char[strlen(m_buffer) + strlen(obj.m_buffer) + 1];
+        strcpy(c, m_buffer);
+        strcat(c, obj.m_buffer);
+
+        return c;
+    }
+
+    const char& operator[](size_t index)const
+    {
+        return m_buffer[index];
+    }
+
+    const char *GetString()const
+    {
+        return m_buffer;
+    }
+
+    const int GetCounter()const
+    {
+        return *m_counter;
+    }
+
+    inline const int* GetAdressCounter()const
+    {
+        return m_counter;
+    }
+
+    void Swap(String& obj)
+    {
+        std::swap(obj.m_counter, this->m_counter);
+        std::swap(obj.m_buffer, this->m_buffer);
+    }
+    friend ostream& operator << (ostream& os, const String& obj);
 };
 
-//-----------------------------------------------
-class HTMLButtonElement:public HTMLElement
+ostream& operator << (ostream& os, const String& obj)
 {
-public:
-    HTMLButtonElement(const string& str,unsigned width,unsigned height,bool hidden)
-        :HTMLElement(width,height,hidden)
-        ,m_button(str)
-    {
+    os << obj.m_buffer;
+    return os;
+}
 
-    }
-    const string& Title() const
-    {
-        return  m_button;
-    }
-    string Render() override
-    {
-        return "<button>" + m_content + "\n" + "</button>";
-    }
-private:
-    string m_button;
-};
 
-//-----------------------------------------------
-class HTMLImageElement:public HTMLElement
-{
-public:
-    HTMLImageElement(const string& str,unsigned width,unsigned height,bool hidden)
-        :HTMLElement(width,height,hidden)
-        ,m_image(str)
-    {
-
-    }
-    const string& Url() const
-    {
-        return m_image;
-    }
-    string Render() override
-    {
-        "<img src='../../smiley.gif' height=" + to_string(Height()) + "width= "+to_string(Width())+">";
-    }
-private:
-    string m_image;
-};
-//-----------------------------------------------
-class HTMLTextAreaElement:public HTMLElement
-{
-public:
-    HTMLTextAreaElement(const string& str,unsigned width,unsigned height,bool hidden)
-        :HTMLElement(width,height,hidden)
-        ,m_content(str)
-    {
-
-    }
-    const string& Content() const
-    {
-        return m_content;
-    }
-    string Render() override
-    {
-        return "<textarea>\n" + m_content + "\n" + "</textarea>\n";
-    }
-
-private:
-    string m_content;
-};
 int main(int argc, char *argv[])
 {
-    const int size = 3;
-    HTMLTextAreaElement textAreaElement("title-of-the-button",40,20,0);
 
-    HTMLElement *sh = &textAreaElement;
-    cout << sh->Render();
+    String s = "anton";
+    {
+        String s1 = s;
+        String s2 = "dssaa";
+        assert("Test 1 m_counter in s crash : mismatch with counter " &&
+               s.GetCounter() == 2 );
+        assert("Test 1 m_counter in s2 crash : mismatch with counter" &&
+               s2.GetCounter() == 1 );
+
+    }
+    cout << "======================="<<endl;
+    assert("Test 2 m_counter in s crash : The counter has not decreased" &&
+           s.GetCounter() == 1 );
+    String s2 = "chaban";
+    {
+        String s3 = s + s2;
+        String s4;
+        assert("Test 3 adress m_counter  : semy with adress counter s2 or s " &&
+               (s3.GetAdressCounter() != s.GetAdressCounter()) &&
+               (s3.GetAdressCounter() != s2.GetAdressCounter()));
+    }
+
+    s.SetChar('s', 1);
+
+    String s3;//= s2 + s;
+
+    cout << "////" << endl;
+
+    cout << s3.GetAdressCounter()  << endl;
+    cout << s.GetAdressCounter()  << endl;
+
+    assert("Test 4 adress m_counter  : semy with adress counter s2 or s " &&
+           (s3.GetAdressCounter() != s.GetAdressCounter()) &&
+           (s3.GetAdressCounter() != s2.GetAdressCounter()));
+
+    cout << s;
     return 0;
 }
