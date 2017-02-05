@@ -19,6 +19,7 @@ RomeNumber::RomeNumber(const char* romeChar)
     , m_arabNumber(m_romeCharMap[romeChar[0]])
 {
     ConvertFrRomeToArab();
+
 }
 //----------------------------------------------------------------
 RomeNumber::RomeNumber(const int& arabNumber)
@@ -27,13 +28,13 @@ RomeNumber::RomeNumber(const int& arabNumber)
 {
 }
 //----------------------------------------------------------------
-string RomeNumber::GetRomeString()
+const string& RomeNumber::GetRomeString()
 {
     ConvertFrArabToRome();
     return m_romeString;
 }
 
-int RomeNumber::GetArabNumber() const
+const int& RomeNumber::GetArabNumber() const
 {
     return m_arabNumber;
 }
@@ -60,10 +61,6 @@ const int& RomeNumber::ConvertFrRomeToArab()
 //----------------------------------------------------------------
 const string& RomeNumber::ConvertFrArabToRome()
 {
-    if(m_arabNumber <= 0)
-    {
-        exit(1);
-    }
     m_romeString = "";
     int arabNumber = m_arabNumber;
     int fraction = 10;
@@ -150,6 +147,7 @@ const RomeNumber& RomeNumber::operator = (const RomeNumber& obj)
 void RomeNumber::Swap(RomeNumber& obj)
 {
     std::swap(obj.m_arabNumber, this->m_arabNumber);
+    std::swap(obj.m_romeString, this->m_romeString);
 }
 //----------------------------------------------------------------
 int RomeNumber::operator + (const int& rhs)

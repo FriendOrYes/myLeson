@@ -24,8 +24,8 @@ public:
     RomeNumber(const RomeNumber&);
     ~RomeNumber();
 
-    string GetRomeString();
-    int GetArabNumber() const;
+    const string& GetRomeString();
+    const int& GetArabNumber() const;
     const int& ConvertFrRomeToArab();
     const string &ConvertFrArabToRome();
     void Swap(RomeNumber&);
