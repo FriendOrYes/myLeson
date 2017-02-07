@@ -12,15 +12,14 @@ private:
     char* m_buffer;
     int* m_counter;
 
-    void CheckCounter()
+    bool CheckCounter()
     {
         (*m_counter)--;
         if(*m_counter == 0)
         {
-            cout << "delete" << endl;
-            delete []m_buffer;
-            delete []m_counter;
+            return 1;
         }
+        return 0;
     }
     void AttachToBuffer(const String& obj)
     {
@@ -29,6 +28,14 @@ private:
         (*m_counter)++;
     }
 
+    void DettachToBuffer()
+    {
+        if(m_counter) delete m_counter;
+        if(m_buffer) delete []m_buffer;
+
+        m_counter = nullptr;
+        m_buffer = nullptr;
+    }
 public:
     String()
         :m_counter(new int(1))
@@ -53,61 +60,51 @@ public:
 
     ~String()
     {
-        cout << "~String : "<< this <<"\n";
-        (*m_counter)--;
-
-        cout << "m_counter = " << *m_counter  << endl ;
-
-        cout << *m_counter;
-
-        if( (*m_counter) == 0 )
+        if(CheckCounter())
         {
-            if(m_buffer)
-            {
-                cout << "delete m_buffer\n";
-                delete []m_buffer;
-                delete []m_counter;
-                m_counter = nullptr;
-                m_buffer = nullptr;
-            }
+            DettachToBuffer();
         }
     }
     String& operator=(const String& obj)
     {
-        CheckCounter();
-
-        AttachToBuffer(obj);
-
+        if(&obj != this)
+        {
+            String tmp(obj);
+            tmp.CheckCounter();
+            tmp.AttachToBuffer(obj);
+            Swap(tmp);
+        }
         return *this;
     }
     String& operator=(const char* value)
     {
-        CheckCounter();
+        String tmp(*this);
 
-        m_counter = new int(1);
+        if(tmp.CheckCounter())
+        {
+            DettachToBuffer();
+        }
+        tmp.m_counter = new int(1);
+        tmp.m_buffer = new char[strlen(value) + 1];
+        strcpy(tmp.m_buffer, value);
 
-        m_buffer = new char[strlen(value) + 1];
-        strcpy(m_buffer, value);
-
+        Swap(tmp);
         return *this;
     }
 
-    void SetChar(const char& c, int index)
+    void SetChar(const char& c, const int& index)
     {
-        CheckCounter();
-        m_counter = new int(1);
 
-        char *tempBuffer = new char[strlen(m_buffer) + 1];
-        strcpy(tempBuffer, m_buffer);
-
-        m_buffer = tempBuffer;
+        if(CheckCounter() == false)
+        {
+            String tmp(m_buffer);
+            std::swap(tmp, *this);
+        }
         m_buffer[index] = c;
-
     }
 
     const char* operator +(const String& obj)const
     {
-
         char* c = new char[strlen(m_buffer) + strlen(obj.m_buffer) + 1];
         strcpy(c, m_buffer);
         strcat(c, obj.m_buffer);
@@ -119,7 +116,6 @@ public:
     {
         return m_buffer[index];
     }
-
 
     const char *GetString()const
     {
@@ -136,9 +132,19 @@ public:
         return m_counter;
     }
 
+    void Swap(String& obj)
+    {
+        std::swap(obj.m_counter, this->m_counter);
+        std::swap(obj.m_buffer, this->m_buffer);
+    }
+    friend ostream& operator << (ostream& os, const String& obj);
 };
 
-
+ostream& operator << (ostream& os, const String& obj)
+{
+    os << obj.m_buffer;
+    return os;
+}
 
 
 int main(int argc, char *argv[])
@@ -166,5 +172,19 @@ int main(int argc, char *argv[])
                (s3.GetAdressCounter() != s2.GetAdressCounter()));
     }
 
+    s.SetChar('s', 1);
+
+    String s3;//= s2 + s;
+
+    cout << "////" << endl;
+
+    cout << s3.GetAdressCounter()  << endl;
+    cout << s.GetAdressCounter()  << endl;
+
+    assert("Test 4 adress m_counter  : semy with adress counter s2 or s " &&
+           (s3.GetAdressCounter() != s.GetAdressCounter()) &&
+           (s3.GetAdressCounter() != s2.GetAdressCounter()));
+
+    cout << s;
     return 0;
 }
