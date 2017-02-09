@@ -40,7 +40,7 @@ public:
     {
         if(m_top > m_maxSize)
         {
-            return;
+            throw runtime_error("Stack is Full");
         }
 
         m_stackPtr[m_top++] = elem;
@@ -49,12 +49,11 @@ public:
     {
         if(m_top < 1)
         {
-            return 0;
+            throw runtime_error("Stack is empty");
         }
 
         return m_stackPtr[m_top--];
     }
-
     const size_t& GetStackSize()const
     {
         return m_maxSize;
@@ -79,6 +78,7 @@ public:
 template<>
 class Stack<bool>
 {
+
     size_t m_maxSize;
     char* m_stackPtr;
     int m_top;
@@ -86,7 +86,7 @@ class Stack<bool>
     size_t SizeСalculation(const int& size)
     {
         m_maxSize = size / 8;
-        if( size%8 )
+        if(size%8)
         {
             m_maxSize++;
         }
@@ -106,7 +106,7 @@ public :
         , m_top(obj.m_top)
     {
         cout << "Stack(copy) " << endl;
-        memcpy(m_stackPtr,obj.m_stackPtr,sizeof(m_stackPtr));
+        memcpy(m_stackPtr,obj.m_stackPtr,sizeof(*m_stackPtr) * m_maxSize);
     }
 
     ~Stack()
@@ -116,11 +116,9 @@ public :
 //-------------------------------------------------------------------------
     inline void Push(const bool& elem)
     {
-        cout << __FUNCTION__ << endl ;
-        if(m_top > m_maxSize * 8)
+        if(m_top > m_maxSize * 8 - 1)
         {
-            cout << " Overflow Stack" << endl;
-            return ;
+            throw runtime_error("Stack is overFloow");
         }
 
         int numElem = m_top / 8;
@@ -129,14 +127,14 @@ public :
         m_stackPtr[numElem] ^= (-elem ^ m_stackPtr[numElem])
                 & (1 << (7 - offsetElem));
         m_top++;
-        cout << m_top << endl;
     }
 //-------------------------------------------------------------------------
+
     bool Pop()
     {
-        if(m_top > 0)
+        if(m_top < 1)
         {
-            return 0;
+            throw runtime_error("Stack empty!");
         }
 
         int numElemet = m_top / 8;
@@ -159,19 +157,28 @@ public :
 //-------------------------------------------------------------------------
     const Stack& operator = (const Stack& obj)
     {
-        cout << __FUNCTION__ << endl;
-        delete []m_stackPtr;
 
-        m_maxSize = obj.m_maxSize;
-        m_stackPtr = new char[m_maxSize];
-        m_top = obj.m_top;
-
-        for(size_t i = 0; i < m_maxSize; ++i)
+        if(this != &obj)
         {
-            m_stackPtr[i] = obj.m_stackPtr[i];
+            Stack tmp(obj);
+            delete []tmp.m_stackPtr;
+
+            tmp.m_maxSize = obj.m_maxSize;
+            tmp.m_stackPtr = new char[m_maxSize];
+            tmp.m_top = obj.m_top;
+            memcpy(tmp.m_stackPtr, obj.m_stackPtr, sizeof(*obj.m_stackPtr) * obj.m_maxSize);
+
+            swap(tmp);
         }
+        return *this;
     }
 
+    void swap(Stack& obj)
+    {
+          std::swap(obj.m_maxSize, m_maxSize);
+          std::swap(obj.m_stackPtr, m_stackPtr);
+          std::swap(obj.m_top, m_top);
+    }
     friend ostream& operator << (ostream &os, const Stack& obj);
 };
 
@@ -191,8 +198,6 @@ ostream& operator << (ostream &os, const Stack<T>& obj)
 //--------------------------------------------------------------------------
 ostream& operator << (ostream &os, const Stack<bool>& obj)
 {
-    os << __FUNCTION__ << endl ;
-
     int i = 0, k = 7;
     int offsetElem = k % 8, top = obj.m_top;
 
@@ -216,18 +221,47 @@ int main(int argc, char *argv[])
 {
     const int size = 10;
 
+    bool flag = false;
     Stack<bool> st;
+    try
+    {
+        st.Push(1);
+        st.Push(1);
+        st.Push(1);
+        st.Push(0);
+        st.Push(1);
+        st.Push(1);
+        st.Push(0);
+        st.Push(0);
+        st.Push(1);
+        st.Push(1);
+        st.Push(1);
+        st.Push(1);
+        st.Push(0);
+        st.Push(1);
+        st.Push(1);
+        st.Push(0);
+        st.Push(0);
+        st.Push(1);
+        st.Push(1);
+        st.Push(1);
+        st.Push(1);
+        st.Push(0);
+        st.Push(1);
+        st.Push(1);
+        st.Push(0);
+        st.Push(0);
+        st.Push(1);
+    }
+    catch(exception &ex)
+    {
+        flag = true;
+    }
+    assert(flag == true);
+    Stack<bool> st2;
 
-    st.Push(1);
-    st.Push(1);
-    st.Push(1);
-    st.Push(0);
-    st.Push(1);
-    st.Push(1);
-    st.Push(0);
-    st.Push(0);
-
-
+    st2 = st;
+    cout << st;
     Stack<double> stD(8);
 
     stD.Push(5);
