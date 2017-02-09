@@ -21,6 +21,7 @@ private:
         }
         return 0;
     }
+
     void AttachToBuffer(const String& obj)
     {
         m_buffer = obj.m_buffer;
@@ -28,13 +29,16 @@ private:
         (*m_counter)++;
     }
 
-    void DettachToBuffer()
+    void DettachFromBuffer()
     {
-        if(m_counter) delete m_counter;
-        if(m_buffer) delete []m_buffer;
+        if(CheckCounter())
+        {
+            if(m_counter) delete m_counter;
+            if(m_buffer) delete []m_buffer;
 
-        m_counter = nullptr;
-        m_buffer = nullptr;
+            m_counter = nullptr;
+            m_buffer = nullptr;
+        }
     }
 public:
     String()
@@ -60,12 +64,9 @@ public:
 
     ~String()
     {
-        if(CheckCounter())
-        {
-            DettachToBuffer();
-        }
+        DettachFromBuffer();
     }
-    String& operator=(const String& obj)
+    String& operator = (const String& obj)
     {
         if(&obj != this)
         {
@@ -78,28 +79,14 @@ public:
     }
     String& operator=(const char* value)
     {
-        String tmp(*this);
-
-        if(tmp.CheckCounter())
-        {
-            DettachToBuffer();
-        }
-        tmp.m_counter = new int(1);
-        tmp.m_buffer = new char[strlen(value) + 1];
-        strcpy(tmp.m_buffer, value);
-
-        Swap(tmp);
-        return *this;
+        String tmp(value);
+        std::swap(tmp, *this);
     }
 
     void SetChar(const char& c, const int& index)
     {
-
-        if(CheckCounter() == false)
-        {
-            String tmp(m_buffer);
-            std::swap(tmp, *this);
-        }
+        String tmp(m_buffer);
+        std::swap(tmp, *this);
         m_buffer[index] = c;
     }
 
@@ -186,5 +173,12 @@ int main(int argc, char *argv[])
            (s3.GetAdressCounter() != s2.GetAdressCounter()));
 
     cout << s;
+
+    {
+       String s1("abc");
+       s1.SetChar('x', 0);
+       assert(s1.GetCounter() == 1);
+    }
+
     return 0;
 }
