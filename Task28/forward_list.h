@@ -47,7 +47,7 @@ struct fwd_list_iterator : public std::iterator<std::forward_iterator_tag, T>
 
     bool operator==(const fwd_list_iterator& rhs)
     {
-        return m_current==rhs.m_current;
+        return m_current == rhs.m_current;
     }
 
     bool operator!=(const fwd_list_iterator& rhs)
@@ -151,6 +151,21 @@ public:
     void reverse()
     {
         // ...
+        cout << __FUNCTION__ << endl;
+        if(empty()) std::runtime_error("list is empty");
+
+        fwd_list_Node<T>* prev = head;
+        fwd_list_Node<T>* next = head -> next;
+        fwd_list_Node<T>* sentinel = head;
+
+        while(next != nullptr)
+        {
+            head = next;
+            next = head->next;
+            head->next = prev;
+            prev = head;
+        }
+        sentinel->next = nullptr;
     }
 
     iterator begin()

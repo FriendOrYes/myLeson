@@ -185,7 +185,7 @@ public:
 
     void reverse()
     {
-        if(empty()) return;
+        if(empty()) throw std::runtime_error("list is empty");
 
         list_Node<T> *tmp = head;
 
@@ -240,20 +240,13 @@ public:
     void push_back(const T& elem)
     {
         list_Node<T>* tmp = new list_Node<T>{elem, nullptr, sentinel};
-        if (tail != sentinel)
+        if (head != sentinel)
         {
-            list_Node<T>* tmpH = head;
-            while(head->next != sentinel)
-            {
-                head = head->next;
-            }
-            head->next = tmp;
-            tmp->prev = head;
-            head = tmpH;
+            tail->next = tmp;
+            tail = tmp;
         }
-
         size++;
-        tail = tmp;
+        head = tmp;
         update_tail();
         update_sentinel();
     }
@@ -262,18 +255,11 @@ public:
         list_Node<T>* tmp = new list_Node<T>{std::move(elem), nullptr, sentinel};
         if (tail != sentinel)
         {
-            list_Node<T>* tmpH = head;
-            while(head->next != sentinel)
-            {
-                head = head->next;
-            }
-            head->next = tmp;
-            tmp->prev = head;
-            head = tmpH;
+            tail->next = tmp;
+            tail = tmp;
         }
-
         size++;
-        tail = tmp;
+        head = tmp;
         update_tail();
         update_sentinel();
     }

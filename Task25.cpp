@@ -161,13 +161,6 @@ public :
         if(this != &obj)
         {
             Stack tmp(obj);
-            delete []tmp.m_stackPtr;
-
-            tmp.m_maxSize = obj.m_maxSize;
-            tmp.m_stackPtr = new char[m_maxSize];
-            tmp.m_top = obj.m_top;
-            memcpy(tmp.m_stackPtr, obj.m_stackPtr, sizeof(*obj.m_stackPtr) * obj.m_maxSize);
-
             swap(tmp);
         }
         return *this;
