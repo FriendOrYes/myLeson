@@ -964,7 +964,6 @@ int main()
 
     //        cout << "dlist: " << dlist << endl;
             my::list<int> dlist2 = dlist;
-            return 0;
             cout << "dlist2: " << dlist2 << endl;
 
             assert(dlist.back() == dlist2.back());
@@ -989,7 +988,7 @@ int main()
 
             dlist.pop_front();
             cout << "popped front: " << dlist << endl;
-            assert(dlist.empty()==true);
+            assert(dlist.empty() == true);
 
             dlist.push_front(11);
             auto it = dlist.begin();
@@ -1005,6 +1004,7 @@ int main()
             dlist.pop_back();
             cout << "popped back: " << dlist << endl;
             assert(dlist.empty()==true);
+            return 0;
         }
 
         {
