@@ -1004,6 +1004,8 @@ int main()
             dlist.pop_back();
             cout << "popped back: " << dlist << endl;
             assert(dlist.empty()==true);
+            cout << "PASSED!!!!!" << endl;
+            return 0;
         }
 
         {
