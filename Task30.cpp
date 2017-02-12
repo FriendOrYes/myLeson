@@ -9,7 +9,7 @@
 #include <pthread.h>
 #include <mutex>
 #include <unistd.h>
-#include <windows.h>
+#include <chrono>
 
 using namespace std;
 
@@ -26,17 +26,13 @@ class RingBuffer
     std::condition_variable cond;
     mutable std::mutex mtx;
 
-    bool unsaveEmpty() const
+    bool unsafeEmpty() const
     {
-//        cout << __FUNCTION__ << endl;
-
         return (m_start == m_end);
     }
 
-    bool unsaveFull() const
+    bool unsafeFull() const
     {
- //       cout << __FUNCTION__ << endl;
-
         return (N == m_start - m_end);
     }
 
@@ -56,22 +52,20 @@ public:
     {
         std::lock_guard<std::mutex> lock(mtx);
 
-        return unsaveEmpty();
+        return unsafeEmpty();
     }
 
     bool full() const
     {        
         std::lock_guard<std::recursive_mutex> lock(mtx);
 
-        return unsaveFull();
+        return unsafeFull();
     }
 
     void push_back(const T& elem)
     {
-//        cout << __FUNCTION__ << endl;
-
         unique_lock<std::mutex> lock{mtx};
-        while(unsaveFull())
+        while(unsafeFull())
         {
             cond.wait(lock);
         }
@@ -85,7 +79,7 @@ public:
     {
         std::unique_lock<std::mutex> lock{mtx};
 
-        while(unsaveEmpty())
+        while(unsafeEmpty())
         {
             cond.wait(lock);
         }
@@ -96,7 +90,7 @@ public:
     void pop_front()
     {
         std::unique_lock<std::mutex> lock(mtx);
-        if(!unsaveEmpty())
+        if(!unsafeEmpty())
         {
             ++m_end;
             cond.notify_one();
@@ -115,7 +109,8 @@ namespace  TestBlockingEmpty
             while(count)
             {
                 ringBuffer.push_back(count--);
-                Sleep(100);
+                std::chrono::milliseconds timeout(100);
+                std::this_thread::sleep_for(timeout);
                 cout << "push_value" << endl;
             }
         }};
@@ -164,8 +159,8 @@ namespace  TestBlockingFull
                     value = ringBuffer.front();
                     ringBuffer.pop_front();
                     cout << "read value :" << value  << endl;
-                    Sleep(100);
-                    // count++;
+                    std::chrono::milliseconds timeout(100);
+                    std::this_thread::sleep_for(timeout);
                 }
          }};
 
