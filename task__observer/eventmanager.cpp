@@ -26,12 +26,29 @@ void EventManager::publishEvent(const Event& ev)
 void EventManager::addListener(shared_ptr<EventListener>& listener)
 {
     //...
-    m_listeners.push_back(listener);
+    bool ListeneiIsOn = std::any_of(m_listeners.begin(), m_listeners.end(), [&](weak_ptr<EventListener> listen)
+    {
+        shared_ptr<EventListener> listenerPtr = listen.lock();
+        return listener.get() == listenerPtr.get();
+    });
+
+    if(!ListeneiIsOn)
+    {
+        m_listeners.push_back(listener);
+    }
+    else
+    {
+        cout << "Listener is already present" << endl;
+    }
 }
 
 void EventManager::removeListener(shared_ptr<EventListener>& listener)
 {
     //...
-    m_listeners.pop_back();
+    m_listeners.erase(std::remove_if(m_listeners.begin(), m_listeners.end(), [&](weak_ptr<EventListener> listen)
+    {
+        shared_ptr<EventListener> listenerPtr = listen.lock();
+        return listener.get() == listenerPtr.get();
+    }));
 }
 

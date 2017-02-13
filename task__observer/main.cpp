@@ -64,6 +64,12 @@ int main(int argc, char *argv[])
     EventManager::getInstance().addListener(evListener3);
 
     EventManager::getInstance().publishEvent(ev);
+    EventManager::getInstance().removeListener(evListener3);
+
+    Event ev2("Add new Image");
+
+    EventManager::getInstance().publishEvent(ev2);
+
     return 0;
 
 }
