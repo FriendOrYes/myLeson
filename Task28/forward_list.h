@@ -151,7 +151,7 @@ public:
     void reverse()
     {
         // ...
-        cout << __FUNCTION__ << endl;
+        std::cout << __FUNCTION__ << std::endl;
         if(empty()) std::runtime_error("list is empty");
 
         fwd_list_Node<T>* prev = head;

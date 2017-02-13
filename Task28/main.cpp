@@ -943,17 +943,22 @@ int main()
         // double-ended list
         cout << "double-ended list: " << endl;
         {
-            my::list<int> dlist;
+            my::list<char> dlist;
 
             // TEST should pass when methods are implemented
 
-            dlist.push_back(5);
-            dlist.push_back(1);
-            dlist.push_back(2);
+            dlist.push_back('c');
+            dlist.push_back('r');
+            dlist.push_back('a');
+            dlist.push_back('a');
+            dlist.push_back('s');
+            dlist.push_back('t');
+//return 0;
+//            dlist.push_back(2);
 
-            dlist.push_front(6);
-            dlist.push_front(7);
-            dlist.push_front(8);
+//            dlist.push_front(6);
+//            dlist.push_front(7);
+//            dlist.push_front(8);
 
             assert(dlist.empty()==false);
 
@@ -963,9 +968,9 @@ int main()
             }
 
     //        cout << "dlist: " << dlist << endl;
-            my::list<int> dlist2 = dlist;
+            my::list<char> dlist2 = dlist;
             cout << "dlist2: " << dlist2 << endl;
-
+//return 0;
             assert(dlist.back() == dlist2.back());
             assert(dlist.front()== dlist2.front());
 
@@ -974,7 +979,6 @@ int main()
             {
                 cout << *it << endl;
             }
-
             cout << *(dlist.rbegin()) << endl;
             assert(dlist.back() ==*(dlist.rbegin()));
 
@@ -988,9 +992,9 @@ int main()
 
             dlist.pop_front();
             cout << "popped front: " << dlist << endl;
-            assert(dlist.empty() == true);
+            assert(dlist.empty() != true);
 
-            dlist.push_front(11);
+            dlist.push_front('c');
             auto it = dlist.begin();
             *(it) = 42;
             cout << "push & modify: " << dlist << endl;
@@ -1003,7 +1007,7 @@ int main()
 
             dlist.pop_back();
             cout << "popped back: " << dlist << endl;
-            assert(dlist.empty()==true);
+            assert(dlist.empty() != true);
             cout << "PASSED!!!!!" << endl;
             return 0;
         }

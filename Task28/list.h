@@ -161,6 +161,7 @@ public:
 
     T pop_front()
     {
+        if(empty()) throw std::runtime_error("list empty");
         T data = head->data;
         list_Node<T>* tmp = head->next;
         delete head;
@@ -173,6 +174,7 @@ public:
 
     T pop_back()
     {
+        if(empty()) throw std::runtime_error("list empty");
         T data = tail->data;
         list_Node<T>* tmp = tail->prev;
         delete tail;
@@ -191,7 +193,7 @@ public:
 
         while(head->next != sentinel)
         {
-            cout << "Fucntion" << endl;
+            std::cout << "Fucntion" << std::endl;
             std::swap(head->next, head->prev);
             head = head->prev;
         }
@@ -201,7 +203,7 @@ public:
         update_tail();
         update_sentinel();
 
-        cout << "Fucntion" << endl;
+        std::cout << "Fucntion" << std::endl;
     }
 
     bool empty()
@@ -240,13 +242,14 @@ public:
     void push_back(const T& elem)
     {
         list_Node<T>* tmp = new list_Node<T>{elem, nullptr, sentinel};
-        if (head != sentinel)
+        if (tail != sentinel)
         {
             tail->next = tmp;
+            tmp->prev = tail;
             tail = tmp;
         }
         size++;
-        head = tmp;
+        tail = tmp;
         update_tail();
         update_sentinel();
     }
@@ -255,11 +258,12 @@ public:
         list_Node<T>* tmp = new list_Node<T>{std::move(elem), nullptr, sentinel};
         if (tail != sentinel)
         {
-            tail->next = tmp;
+            tail->next = tmp;     
+            tmp->prev = tail;
             tail = tmp;
         }
         size++;
-        head = tmp;
+        tail = tmp;
         update_tail();
         update_sentinel();
     }
@@ -316,7 +320,7 @@ public:
 
     ~list()
     {
-        cout << __FUNCTION__ <<endl;
+        std::cout << __FUNCTION__ << std::endl;
         while(head != sentinel)
         {
             list_Node<T>* tmp = head;
