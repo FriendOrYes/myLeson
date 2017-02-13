@@ -15,8 +15,8 @@ void EventManager::publishEvent(const Event& ev)
     //...
     for(auto it = m_listeners.begin(); it != m_listeners.end(); ++it)
     {
-        shared_ptr<EventListener> listenerPtr = (*it).lock();
-        if(listenerPtr)
+        shared_ptr<EventListener> listenerPtr;
+        if((listenerPtr = it->lock()))
         {
             listenerPtr -> notify(ev);
         }
@@ -28,8 +28,7 @@ void EventManager::addListener(shared_ptr<EventListener>& listener)
     //...
     bool ListeneiIsOn = std::any_of(m_listeners.begin(), m_listeners.end(), [&](weak_ptr<EventListener> listen)
     {
-        shared_ptr<EventListener> listenerPtr = listen.lock();
-        return listener.get() == listenerPtr.get();
+        return (listener == listen.lock());
     });
 
     if(!ListeneiIsOn)
@@ -47,8 +46,7 @@ void EventManager::removeListener(shared_ptr<EventListener>& listener)
     //...
     m_listeners.erase(std::remove_if(m_listeners.begin(), m_listeners.end(), [&](weak_ptr<EventListener> listen)
     {
-        shared_ptr<EventListener> listenerPtr = listen.lock();
-        return listener.get() == listenerPtr.get();
+         return (listener == listen.lock());
     }));
 }
 

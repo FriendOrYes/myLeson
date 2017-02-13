@@ -55,6 +55,7 @@ int main(int argc, char *argv[])
     shared_ptr<EventListener> evListener1 = make_shared<FileLogger>(FileLogger());
     shared_ptr<EventListener> evListener2 = make_shared<ConnectionMgr>(ConnectionMgr());
     shared_ptr<EventListener> evListener3 = make_shared<EventHandler>(EventHandler());
+
     //...
 
     Event ev("Click");
@@ -69,6 +70,15 @@ int main(int argc, char *argv[])
     Event ev2("Add new Image");
 
     EventManager::getInstance().publishEvent(ev2);
+
+    {
+          shared_ptr<EventListener> evListener4 = make_shared<FileLogger>(FileLogger());
+          EventManager::getInstance().addListener(evListener4);
+          EventManager::getInstance().publishEvent(Event("YY"));
+    }
+
+    EventManager::getInstance().publishEvent(Event("XXX"));
+    EventManager::getInstance().addListener(evListener2);
 
     return 0;
 
