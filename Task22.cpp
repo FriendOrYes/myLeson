@@ -42,8 +42,8 @@ private:
     }
 public:
     String()
-        :m_counter(new int(1))
-        ,m_buffer(nullptr)
+        :m_buffer(nullptr)
+        ,m_counter(new int(1))
     {
         cout << "String : "<< this <<endl;
     }
@@ -71,8 +71,6 @@ public:
         if(&obj != this)
         {
             String tmp(obj);
-            tmp.CheckCounter();
-            tmp.AttachToBuffer(obj);
             Swap(tmp);
         }
         return *this;
@@ -90,13 +88,18 @@ public:
         m_buffer[index] = c;
     }
 
-    const char* operator +(const String& obj)const
+    char* operator + (const String& obj)const
     {
         char* c = new char[strlen(m_buffer) + strlen(obj.m_buffer) + 1];
         strcpy(c, m_buffer);
         strcat(c, obj.m_buffer);
 
-        return c;
+        return c;//
+    }
+    char* operator +=(const String& obj)
+    {
+        *this = *this + obj;
+        return m_buffer;
     }
 
     const char& operator[](size_t index)const
@@ -161,7 +164,7 @@ int main(int argc, char *argv[])
 
     s.SetChar('s', 1);
 
-    String s3;//= s2 + s;
+    String s3 = s2 + s;
 
     cout << "////" << endl;
 
@@ -172,8 +175,10 @@ int main(int argc, char *argv[])
            (s3.GetAdressCounter() != s.GetAdressCounter()) &&
            (s3.GetAdressCounter() != s2.GetAdressCounter()));
 
-    cout << s;
+    cout << s3 << endl;
 
+    s3 += s;
+    cout << s3 << endl;;
     {
        String s1("abc");
        s1.SetChar('x', 0);
