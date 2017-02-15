@@ -98,11 +98,9 @@ float CircleSquare(Shape *thiz)
 //---------------------------------------------------------
 void ShapeInit(Shape* thiz)
 {
-    /* >>> VTable construction START >>> */
     Vtable* vptr = new Vtable;
     thiz->pVtable = vptr;
     thiz->pVtable->squre = NULL; // pure function
-    /* <<< VTable construction END <<< */
     cout << "I'm pure person" << endl;
     thiz->squreShape = 0;
 }
@@ -111,11 +109,9 @@ void RectangleInit(Rectangle* thiz, const float& height, const float& weight)
 {
         ShapeInit((Shape*)thiz);
         cout << "Rectangle Init :" << endl;
-        /* >>> VTable construction START >>> */
         Vtable *vptr = new Vtable;
         thiz->pVtable = vptr;
         thiz->pBase.pVtable->squre = RectangleSquare;
-        /* <<< VTable construction END <<< */
         thiz->height = height;
         thiz->weight = weight;
 }
@@ -126,13 +122,9 @@ void CircleInit(Circle* thiz, const float& radius)
         ShapeInit((Shape*)thiz);
         cout << "Circl Init :" << endl;
 
-        /* >>> VTable construction START >>> */
-
         Vtable *vptr = new Vtable;
         thiz->pVtable = vptr;
         thiz->pBase.pVtable->squre = CircleSquare;
-
-        /* <<< VTable construction END <<< */
 
         thiz->radius = radius;
 }
