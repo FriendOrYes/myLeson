@@ -79,6 +79,8 @@ public:
     {
         String tmp(value);
         std::swap(tmp, *this);
+
+        return *this;
     }
 
     void SetChar(const char& c, const int& index)
@@ -88,7 +90,7 @@ public:
         m_buffer[index] = c;
     }
 
-    char* operator + (const String& obj)const
+    String operator + (const String& obj)const
     {
         char* c = new char[strlen(m_buffer) + strlen(obj.m_buffer) + 1];
         strcpy(c, m_buffer);
@@ -96,10 +98,10 @@ public:
 
         return c;//
     }
-    char* operator +=(const String& obj)
+    String operator +=(const String& obj)
     {
         *this = *this + obj;
-        return m_buffer;
+        return *this;
     }
 
     const char& operator[](size_t index)const
@@ -112,7 +114,7 @@ public:
         return m_buffer;
     }
 
-    const int GetCounter()const
+    const int& GetCounter()const
     {
         return *m_counter;
     }
