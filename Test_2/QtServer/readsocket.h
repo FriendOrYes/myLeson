@@ -7,12 +7,12 @@
 #include <memory>
 #include <QString>
 
-class Server : public QObject
+class ReadSocket : public QObject
 {
     Q_OBJECT
 public:
-    explicit Server(QObject *parent = 0);
-    ~Server();
+    explicit ReadSocket(QObject *parent = 0);
+    ~ReadSocket();
 
 signals:
     void HaveDataForeSend(QByteArray );

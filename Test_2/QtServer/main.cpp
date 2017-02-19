@@ -1,5 +1,5 @@
 #include <iostream>
-#include "server.h"
+#include "readsocket.h"
 #include <QCoreApplication>
 #include <QThread>
 #include "writeonport.h"
@@ -12,16 +12,16 @@ int main(int argc, char *argv[])
     cout << "Enter!" << endl;
 
     QCoreApplication app(argc, argv);
-    Server server;
-    WriteOnPort SerRead;
-    server.Start();
+    ReadSocket Read;
+    WriteOnPort Write;
+    Read.Start();
     QThread threadRead;
-    SerRead.moveToThread(&threadRead);
+    Write.moveToThread(&threadRead);
 
-    SerRead.connect(&server, SIGNAL(HaveDataForeSend(QByteArray )), &SerRead, SLOT(OnReadyRead(QByteArray)));
+    Write.connect(&Read, SIGNAL(HaveDataForeSend(QByteArray )), &Write, SLOT(OnReadyRead(QByteArray)));
 
-    SerRead.connect(&threadRead, SIGNAL(started()), &SerRead, SLOT(Connect()));
-    server.connect(SerRead.GetSocket(), SIGNAL(connected()), &server, SLOT(OnNewConnection()));
+    Write.connect(&threadRead, SIGNAL(started()), &Write, SLOT(Connect()));
+    Read.connect(Write.GetSocket(), SIGNAL(connected()), &Read, SLOT(OnNewConnection()));
 
     threadRead.start();
 

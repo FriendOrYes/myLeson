@@ -1,10 +1,10 @@
-#include "server.h"
+#include "readsocket.h"
 #include <QTcpSocket>
 #include <QThread>
 #include <algorithm>
 
 
-Server::Server(QObject *parent)
+ReadSocket::ReadSocket(QObject *parent)
     : QObject(parent)
     , m_server(new QTcpServer(this))
     , m_isConnect(false)
@@ -12,12 +12,12 @@ Server::Server(QObject *parent)
 
 }
 
-Server::~Server()
+ReadSocket::~ReadSocket()
 {
     delete m_server;
 }
 
-void Server::Start()
+void ReadSocket::Start()
 {
     connect(m_server, SIGNAL(newConnection()), this, SLOT(OnNewConnection()));
 
@@ -32,7 +32,7 @@ void Server::Start()
      qDebug() << " started!!!!!!!!!!!!!!!";
 }
 
-void Server::OnNewConnection()
+void ReadSocket::OnNewConnection()
 {
     qDebug() << "Connected (server)!";
     QTcpSocket *socket = m_server->nextPendingConnection();
@@ -42,12 +42,12 @@ void Server::OnNewConnection()
 }
 
 
-void Server::HaveConnect()
+void ReadSocket::HaveConnect()
 {
     m_isConnect = true;
 }
 
-void Server::OnReadyRead()
+void ReadSocket::OnReadyRead()
 {
     if(m_isConnect)
     {
