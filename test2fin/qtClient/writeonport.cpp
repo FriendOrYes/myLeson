@@ -4,6 +4,7 @@
 MyWriteOnPort::MyWriteOnPort(QObject *parent)
     : QObject(parent)
     , m_socket(new QTcpSocket(this))
+    , isConnectMy(false)
 {
     connect(m_socket, SIGNAL(connected()),
             this, SLOT(CreatPacket()));
@@ -18,7 +19,8 @@ MyWriteOnPort::~MyWriteOnPort()
 
 void MyWriteOnPort::CreatPacket()
 {
-    const int Len = 64*1024;
+   // qDebug() << "Creat packet";
+    const int Len = 4*1024;
     std::string packet = "test";
     packet += std::to_string(QDateTime::currentMSecsSinceEpoch());
 
@@ -38,4 +40,7 @@ QTcpSocket* MyWriteOnPort::GetSocket()
 {
     return m_socket;
 }
-
+//void MyWriteOnPort::HaveConnect()
+//{
+//    isConnectMy = true;
+//}

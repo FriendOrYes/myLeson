@@ -23,42 +23,39 @@ void MyReadSocket::start()
     {
         qDebug() << "Server started!";
     }
+    qDebug() << " started!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!";
 }
 void MyReadSocket::onNewConnection()
 {
     qDebug() << "Connected (server)!";
-
     QTcpSocket *socket = m_server->nextPendingConnection();
 
     connect(socket, SIGNAL(readyRead()), this, SLOT(onMyReadyRead()));
+    emit GetConnection();
 }
 void MyReadSocket::onMyReadyRead()
 {
     QTcpSocket* socket = static_cast<QTcpSocket*>(sender());
 
     QByteArray byte = socket->readAll();
-    //int indxIndef = 0;
 
+   // qDebug() << byte;
     std::string DataOld = "";
-    for(int i = atoll(std::strstr(byte,"test"))/*index + 1*/; i < byte.length(); ++i)
+    for(int i = atoll(strstr(byte,"test"))/*index + 1*/; byte[i] == 'a' ; ++i)
     {
         if(!isalpha(byte[i]))
             DataOld += byte[i];
     }
-
     time += QDateTime::currentMSecsSinceEpoch() - std::atoll(DataOld.c_str());
     //qDebug() << time << " = " << QDateTime::currentMSecsSinceEpoch() << " - " << std::atoll(DataOld.c_str());
     num += byte.size();
     if(time > 1000)
     {
         emit TimForUbdate(time, num);
+        time = 0;
+        num = 0;
     }
 }
-
-//void MyReadSocket::Connect()
-//{
-//    m_socket->connectToHost("127.1.1.1", 9999);
-//}
 
 MyReadSocket::~MyReadSocket()
 {

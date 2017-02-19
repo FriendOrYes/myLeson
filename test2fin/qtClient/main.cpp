@@ -2,7 +2,7 @@
 #include "client.h"
 #include "readsocket.h"
 #include "writeonport.h"
-#include <Qthread>
+#include <QThread>
 
 int main(int argc, char *argv[])
 {
@@ -16,19 +16,16 @@ int main(int argc, char *argv[])
 
     MyReadSocket read;
 
-    wr.Connect();
 
-
-    c.connect(&read,SIGNAL(TimForUbdate(unsigned int&, double& )), &c, SLOT(UbdateSign(unsigned int&, double&)));
+    c.connect(&read,SIGNAL(TimForUbdate(unsigned int, double )), &c, SLOT(UbdateSign(unsigned int, double)));
 
     wr.moveToThread(&thr1);
-    wr.connect(&thr1, SIGNAL(started()), &wr, SLOT(CreatPacket()));
-
     read.moveToThread(&thr2);
-    read.connect(&thr2, SIGNAL(started()), &read, SLOT(start()));
 
+    read.connect(&thr2, SIGNAL(started()), &read, SLOT(start()));
+    wr.connect(&read, SIGNAL(GetConnection()), &wr, SLOT(Connect()));
     thr1.start();
     thr2.start();
-    //read.start();
+   // read.start();
     return a.exec();
 }

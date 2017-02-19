@@ -18,8 +18,8 @@ public slots:
     void start();
     void onNewConnection();
 signals:
-
-    int TimForUbdate(unsigned int&, double&);
+    void GetConnection();
+    void TimForUbdate(unsigned int, double);
 private:
     QTcpServer * m_server;
 

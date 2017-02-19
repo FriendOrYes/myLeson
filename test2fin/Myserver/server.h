@@ -15,16 +15,17 @@ public:
     ~Server();
 
 signals:
-    void HaveDataForSend(QByteArray& );
+    void HaveDataForSend(QByteArray );
+    void MynewConnection();
 public slots:
     void start();
     void onNewConnection();
     void onBytesWritten(qint64 bytes);
     void onReadyRead();
-
+    void HaveConnect();
 private:
     QTcpServer* m_server;
-
+    bool IsConnect ;
 };
 
 #endif // SERVER_H

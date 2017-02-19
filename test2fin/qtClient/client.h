@@ -17,7 +17,7 @@ signals:
 
 public slots:
 
-    void UbdateSign(unsigned int& time, double& num);
+    void UbdateSign(unsigned int time, double num);
 
 private:
 

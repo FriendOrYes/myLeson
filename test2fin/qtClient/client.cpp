@@ -16,7 +16,7 @@ SimpleClient::SimpleClient(QObject *parent)
 
 }
 
-void SimpleClient::UbdateSign(unsigned int& time, double& num)
+void SimpleClient::UbdateSign(unsigned int time, double num)
 {
     Speed = num / time;
     std::cout <<  "Speed - " << Speed << "B/s" << std::endl;

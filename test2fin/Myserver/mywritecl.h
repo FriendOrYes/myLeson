@@ -10,15 +10,17 @@ class MyWriteCl: public QObject
 
 public:
     explicit MyWriteCl(QObject *parent = 0);
-
+    QTcpSocket* GetSocket();
 signals:
 
 public slots:
-    void onReadyRead(QByteArray& );
+    void onReadyRead(QByteArray );
     void Connect();
+    void OnConnect();
 
 private:
      QTcpSocket* m_socket;
+     bool IsConnect;
 };
 
 

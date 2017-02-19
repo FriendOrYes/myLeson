@@ -10,15 +10,15 @@ class MyWriteOnPort: public QObject
 public:
     MyWriteOnPort(QObject *parent = 0);
     QTcpSocket* GetSocket();
-    void Connect();
     ~MyWriteOnPort();
 
 public slots:
+    void Connect();
     void CreatPacket();
-
+    //void HaveConnect();
 private:
     QTcpSocket* m_socket;
-
+    bool isConnectMy;
 };
 
 #endif // WRITEONPORT_H
