@@ -11,31 +11,21 @@ public:
     explicit SimpleClient(QObject *parent = 0);
     ~SimpleClient();
 
-    void Connect();
-
-    void setValue(int newValue);
-
+    //QTcpSocket* GetSocket();
 signals:
 
-    void valueSet(int);
 
 public slots:
 
-    void onConnected();
-    void onDisconnected();
-    void onBytesWritten(qint64 bytes);
-    void onReadyRead();
+    void UbdateSign(unsigned int& time, double& num);
 
 private:
 
-    int m_value;
 
-
-    QTcpSocket* m_socket;
+     //QTcpSocket* m_socket;
     int m_count;
     double Speed;
-    int time;
-    double num;
+
 };
 
 #endif // CLIENT_H

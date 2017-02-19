@@ -4,14 +4,20 @@
 #include <QObject>
 #include <QTcpSocket>
 
-class WriteOnPort: public QObject
+class MyWriteOnPort: public QObject
 {
     Q_OBJECT
 public:
-    //WriteOnPort();
+    MyWriteOnPort(QObject *parent = 0);
+    QTcpSocket* GetSocket();
+    void Connect();
+
+public slots:
+    void CreatPacket();
 
 private:
     QTcpSocket* m_socket;
+
 };
 
 #endif // WRITEONPORT_H

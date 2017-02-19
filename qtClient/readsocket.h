@@ -4,13 +4,22 @@
 #include <QObject>
 #include <QTcpSocket>
 
-class ReadSocket: public QObject
+class MyReadSocket: public QObject
 {
     Q_OBJECT
 public:
-    ReadSocket();
+    MyReadSocket(QTcpSocket *m_socket, QObject *parent = 0);
+    void Connect();
+
+public slots:
+    void onMyReadyRead();
+signals:
+    int TimForUbdate(unsigned int&, double&);
 private:
     QTcpSocket* m_socket;
+
+    unsigned int time;
+    double num;
 };
 
 #endif // READSOCKET_H
