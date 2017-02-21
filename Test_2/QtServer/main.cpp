@@ -15,15 +15,15 @@ int main(int argc, char *argv[])
     ReadSocket Read;
     WriteOnPort Write;
     Read.Start();
-    QThread threadRead;
-    Write.moveToThread(&threadRead);
+    QThread threadWrite;
+    Write.moveToThread(&threadWrite);
 
     Write.connect(&Read, SIGNAL(HaveDataForeSend(QByteArray )), &Write, SLOT(OnReadyRead(QByteArray)));
 
-    Write.connect(&threadRead, SIGNAL(started()), &Write, SLOT(Connect()));
-    Read.connect(Write.GetSocket(), SIGNAL(connected()), &Read, SLOT(OnNewConnection()));
+    Write.connect(&threadWrite, SIGNAL(started()), &Write, SLOT(Connect()));
+    Read.connect(Write.GetSocket(), SIGNAL(connected()), &Read, SLOT(HaveConnect()));
 
-    threadRead.start();
+    threadWrite.start();
 
     return app.exec();
 }

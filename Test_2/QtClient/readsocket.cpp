@@ -40,8 +40,10 @@ void ReadSocket::OnReadyRead()
     QByteArray byte = socket->readAll();
 
    // qDebug() << byte;
+    if(byte.toStdString().find("test") == -1) return ;
+   // qDebug() << byte;
     std::string DataOld = "";
-    for(int i = atoll(strstr(byte,"test"))/*index + 1*/; byte[i] == 'a' ; ++i)
+    for(int i = byte.toStdString().find("test") + 4; i < byte.toStdString().find("test") + 17; ++i)
     {
         if(!isalpha(byte[i]))
             DataOld += byte[i];

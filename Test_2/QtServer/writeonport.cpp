@@ -28,7 +28,7 @@ void WriteOnPort::Connect()
 {
     qDebug() << "We try connected: ";
 
-    m_socket->connectToHost("127.2.2.2", 8888);
+    m_socket->connectToHost("127.0.0.1", 8888);
 
 }
 QTcpSocket* WriteOnPort::GetSocket()
