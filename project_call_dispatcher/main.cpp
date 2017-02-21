@@ -38,17 +38,17 @@ public /*slots*/:
 
     void Recive()
     {
-        cout << __PRETTY_FUNCTION__ << ": " << this << endl;
+        cout << __FUNCTION__ << ": " << this << endl;
     }
 
     void CheckConnect()
     {
-        cout << __PRETTY_FUNCTION__ << ": " << this << endl;
+        cout << __FUNCTION__ << ": " << this << endl;
     }
 
     void CheckNumberOfConections()
     {
-        cout << __PRETTY_FUNCTION__ << ": " << this << endl;
+        cout << __FUNCTION__ << ": " << this << endl;
     }
 };
 
@@ -112,7 +112,9 @@ int main(int argc, char *argv[])
     b2.ConnectToServer();
     b2.Disconnect();
 
+    d->disconnect(&b1, "ConnectToServer", &a2, "Recive");
     d->disconnect(&b1, "ConnectToServer", &a1, "CheckConnect");
+    d->disconnect(&b1, "ConnectToServer", &a2, "CheckConnect");
 
     b1.Send();
     b1.ConnectToServer();
