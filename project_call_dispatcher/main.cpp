@@ -103,6 +103,11 @@ int main(int argc, char *argv[])
     d->connect(&b1, "Disconnect", &a2, "CheckNumberOfConections");
     d->connect(&b2, "Disconnect", &a2, "CheckNumberOfConections");
 
+
+    cout << "SHOW!!!!" << endl;
+
+//    d->Show();
+//return 0;
     b1.Send();
     b1.ConnectToServer();
     b1.Disconnect();
@@ -118,6 +123,7 @@ int main(int argc, char *argv[])
 
     b1.Send();
     b1.ConnectToServer();
+
 
     return 0;
 }

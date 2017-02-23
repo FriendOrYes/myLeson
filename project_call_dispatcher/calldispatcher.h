@@ -23,6 +23,7 @@ public:
     void disconnect(Object* sender, const std::string& singal, Object* receiver, const std::string& slot);
 
     void sendSignal(Object* sender, const std::string& singal);
+    //void Show();
 };
 
 #endif // CALLDISPATCHER_H

@@ -16,10 +16,11 @@ void CallDispatcher::connect(Object* sender, const std::string& signal, Object *
 void CallDispatcher::disconnect(Object *sender, const std::string& signal, Object *receiver, const std::string& slot)
 {
     ///
-    auto it = m_mapOfObjects.find(std::pair<Object*, std::string>(sender, signal));
+    auto pair = m_mapOfObjects.equal_range(std::pair<Object*, std::string>(sender, signal));
     std::cout << "disconnect->Count of slots for signal --" << signal << " = "<< m_mapOfObjects.count(std::pair<Object*, std::string>(sender, signal))<< std::endl;
+    auto it = pair.first;
 
-    while(it != m_mapOfObjects.end() && it->first.second == signal && it->first.first == sender)
+    while( it != pair.second)
     {
         if(it->second.first == receiver && it->second.second == slot)
         {
@@ -33,12 +34,21 @@ void CallDispatcher::disconnect(Object *sender, const std::string& signal, Objec
 void CallDispatcher::sendSignal(Object *sender, const std::string& signal)
 {
     std::cout << "Send->Count of slots for signal --" << signal << " = "<< m_mapOfObjects.count(std::pair<Object*, std::string>(sender, signal))<< std::endl;
-    auto it = m_mapOfObjects.find(std::pair<Object*, std::string>(sender, signal));
-    while(it != m_mapOfObjects.end() && it->first.second == signal && it->first.first == sender)
+
+    auto pair = m_mapOfObjects.equal_range(std::pair<Object*, std::string>(sender, signal));
+    auto it = pair.first;
+
+    while(it != pair.second)
     {
         std::pair<Object*, std::string> t1 = it->second;
         t1.first->dispatchMethod(t1.second);
-        //std::cout << " sig: " << it->first.second << std::endl;
         ++it;
     }
 }
+//void CallDispatcher::Show()
+//{
+//    for(auto it = m_mapOfObjects.begin(); it != m_mapOfObjects.end(); ++it)
+//    {
+//        std::cout << it->first.second << "----" <<it->second.second << std::endl;
+//    }
+//}
