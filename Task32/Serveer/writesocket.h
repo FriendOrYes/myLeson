@@ -3,21 +3,16 @@
 
 #include <QObject>
 #include <QTcpSocket>
+#include "creatsocket.h"
 
-class WriteSocket: public QObject
+class WriteSocket: public CreatSocket
 {
     Q_OBJECT
 public:
     WriteSocket(qintptr socketDescr, QObject *parent = 0);
     ~WriteSocket();
 private slots:
-    void WriteOnClient(QByteArray array);
-    void OnDisconnected();
-    void OnError(QAbstractSocket::SocketError err);
-    void OnStateChanged(QAbstractSocket::SocketState state);
-
-private :
-    QTcpSocket *m_socket;
+    void WriteOnClient(QByteArray array) override;
 };
 
 #endif // WRITESOCKET_H

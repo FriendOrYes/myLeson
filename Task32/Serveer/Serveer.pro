@@ -12,7 +12,8 @@ TEMPLATE = app
 SOURCES += main.cpp \
     server.cpp \
     writesocket.cpp \
-    readsocket.cpp
+    readsocket.cpp \
+    creatsocket.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -28,4 +29,5 @@ DEFINES += QT_DEPRECATED_WARNINGS
 HEADERS += \
     server.h \
     writesocket.h \
-    readsocket.h
+    readsocket.h \
+    creatsocket.h

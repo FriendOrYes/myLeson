@@ -3,25 +3,18 @@
 
 #include <QObject>
 #include <QTcpSocket>
+#include "creatsocket.h"
 
-class ReadSocket: public QObject
+class ReadSocket: public CreatSocket
 {
     Q_OBJECT
 public:
     ReadSocket(qintptr socketDescr, QObject *parent = 0);
     ~ReadSocket();
 
-signals:
-    void SocketReadData(QByteArray array);
 private slots:
-    void OnReadyRead();
-    void OnConnected();
-    void OnDisconnected();
-    void OnError(QAbstractSocket::SocketError err);
-    void OnStateChanged(QAbstractSocket::SocketState state);
+    void OnReadyRead() override;
 
-private :
-    QTcpSocket *m_socket;
 };
 
 #endif // READSOCKET_H

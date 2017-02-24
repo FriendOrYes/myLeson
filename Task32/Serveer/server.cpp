@@ -34,23 +34,22 @@ void Server::OnConnection()
     {
         qDebug() << "Connected!Read Client";
         //ReadSocket* readSocket = new ReadSocket(m_diskrRead);
+        m_diskrRead = socket->socketDescriptor();
         WriteSocket* writeSocket = new WriteSocket(socket->socketDescriptor());
         writeSocket->moveToThread(thread);
         writeSocket->connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
         writeSocket->connect(thread, SIGNAL(finished()), writeSocket,   SLOT(deleteLater()));
-        writeSocket->connect(this, SIGNAL(HaveMessageFromReadSocket(QByteArray)), writeSocket,   SLOT(WriteOnClient(QByteArray)));
         m_isClientFirstConnect = false;
     }
     else
     {
         qDebug() << "Connected!Write Client";
-        //m_diskrRead = socket->socketDescriptor();
-        ReadSocket* readSocket = new ReadSocket(socket->socketDescriptor());
+
+        ReadSocket*readSocket = new ReadSocket(socket->socketDescriptor());
         readSocket->moveToThread(thread);
         readSocket->connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
         readSocket->connect(thread, SIGNAL(finished()), readSocket,   SLOT(deleteLater()));
-        connect(readSocket,SIGNAL(SocketReadData(QByteArray)),this,SLOT(OnHaveMessageFromReadSocket(QByteArray)));
-
+        readSocket->connect(readSocket, SIGNAL(HaveNewMessage(QByteArray)), new WriteSocket(m_diskrRead), SLOT(WriteOnClient(QByteArray)));
     }
     thread->start();
 }
