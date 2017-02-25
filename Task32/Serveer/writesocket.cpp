@@ -2,7 +2,7 @@
 #include <QThread>
 
 WriteSocket::WriteSocket(qintptr socketDescr, QObject *parent)
-    : CreatSocket(socketDescr)
+    : Socket(socketDescr)
 {
 }
 

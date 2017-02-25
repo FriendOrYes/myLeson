@@ -1,3 +1,5 @@
+
+
 #include "server.h"
 #include "writesocket.h"
 #include "readsocket.h"
@@ -34,8 +36,8 @@ void Server::OnConnection()
     {
         qDebug() << "Connected!Read Client";
         //ReadSocket* readSocket = new ReadSocket(m_diskrRead);
-        m_diskrRead = socket->socketDescriptor();
         WriteSocket* writeSocket = new WriteSocket(socket->socketDescriptor());
+        m_writeSocket = writeSocket;
         writeSocket->moveToThread(thread);
         writeSocket->connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
         writeSocket->connect(thread, SIGNAL(finished()), writeSocket,   SLOT(deleteLater()));
@@ -49,7 +51,7 @@ void Server::OnConnection()
         readSocket->moveToThread(thread);
         readSocket->connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
         readSocket->connect(thread, SIGNAL(finished()), readSocket,   SLOT(deleteLater()));
-        readSocket->connect(readSocket, SIGNAL(HaveNewMessage(QByteArray)), new WriteSocket(m_diskrRead), SLOT(WriteOnClient(QByteArray)));
+        readSocket->connect(readSocket, SIGNAL(HaveNewMessage(QByteArray)), m_writeSocket, SLOT(WriteOnClient(QByteArray)));
     }
     thread->start();
 }
@@ -57,7 +59,6 @@ void Server::OnConnection()
 Server::~Server()
 {
     delete m_server;
-   // delete m_diskrRead;
 }
 void Server::OnHaveMessageFromReadSocket(QByteArray byte)
 {

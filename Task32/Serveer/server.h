@@ -2,7 +2,7 @@
 #define SERVER_H
 #include <QObject>
 #include <QTcpServer>
-
+#include "writesocket.h"
 
 class Server: public QObject
 {
@@ -22,8 +22,7 @@ public :
 private:
     QTcpServer *m_server;
     bool m_isClientFirstConnect;
-    qintptr m_diskrRead;
-
+    WriteSocket* m_writeSocket;
 };
 
 #endif // SERVER_H

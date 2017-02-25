@@ -2,7 +2,7 @@
 #include <QThread>
 
 ReadSocket::ReadSocket(qintptr socketDescr, QObject *parent)
-    : CreatSocket(socketDescr)
+    : Socket(socketDescr)
 {
     connect(m_socket, SIGNAL(readyRead()),
             this, SLOT(OnReadyRead()));

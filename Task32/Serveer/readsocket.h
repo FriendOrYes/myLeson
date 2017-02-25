@@ -5,7 +5,7 @@
 #include <QTcpSocket>
 #include "creatsocket.h"
 
-class ReadSocket: public CreatSocket
+class ReadSocket: public Socket
 {
     Q_OBJECT
 public:

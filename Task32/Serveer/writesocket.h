@@ -5,7 +5,7 @@
 #include <QTcpSocket>
 #include "creatsocket.h"
 
-class WriteSocket: public CreatSocket
+class WriteSocket: public Socket
 {
     Q_OBJECT
 public:
